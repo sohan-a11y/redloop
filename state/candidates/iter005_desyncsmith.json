@@ -1,0 +1,23 @@
+{
+  "name": "desyncsmith",
+  "concept": "An end-to-end request-smuggling lab tool: it fingerprints the lab's proxy<->origin pair, replays CL.TE / TE.CL / TE.TE differential probe batteries with latency-orthogonality scoring plus mitigation control runs against a known-patched control proxy, then lets the operator mount a weaponization chain \u2014 cache poisoning, front-end auth bypass, or stored-XSS admin-session poisoning \u2014 entirely inside the allowlisted lab. Ships multi-repetition significance scoring and patched-control validation gates instead of single-shot 'vulnerable' judgments.",
+  "attack_vectors": [
+    "CL.TE / TE.CL / TE.TE differential detection with timing-orthogonality + teardown-analysis scoring",
+    "Cache poisoning of a cacheable lab resource via smuggled request reshaping origin responses",
+    "Front-end auth bypass where FE logs a benign request while the origin executes a privileged one",
+    "Admin-session / stored-XSS poisoning via cross-user request interleaving",
+    "Mitigation validation gate: findings accepted only when patched-control proxy stays clean across the same probe set"
+  ],
+  "autonomy_level": 4,
+  "dare_factor": 7,
+  "novelty_angle": "Prior request-smuggling tooling mostly stops at detection or one-off PoCs; this couples detection with a repeatable exploit-chain decision engine and, unusually, bakes in a mitigation-validation control arm so false positives on flaky technique are measured, not assumed.",
+  "dependencies": [
+    "Python 3.10+ stdlib (ipaddress, http.client, socket, ssl, subprocess)",
+    "docker-compose lab: nginx/Varnish front + gunicorn/Flask origin + patched control proxy",
+    "optional httpx only if stdlib probing proves too slow",
+    "raw bytesmithing for exact CL/TE framing (no library leakage of Host/Content-Length)",
+    "lab_config.json for user-supplied lab CIDR"
+  ],
+  "effort_estimate": "M",
+  "scope_gate": "ipaddress resolver gate re-checked before every probe: each resolved host (front AND origin AND controls) must be loopback (127.0.0.0/8, ::1) or RFC1918 or inside user-supplied lab CIDR; any out-of-allowlist resolution hard-refuses with WARN banner on first run; DNS-rebinding guard re-resolves and re-validates per probe."
+}

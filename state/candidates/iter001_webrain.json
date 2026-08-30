@@ -1,0 +1,24 @@
+{
+  "name": "webrain",
+  "concept": "An autonomous HTTP-layer attacker that walks recon (host disovery via allowlisted CIDR sweep) -> open-port/service enum -> web-app fingerprinting (headers, tech-stack detection, robots/sitemap endpoints) -> multi-vector exploitation (SQLi, stored/reflected XSS, SSRF, path traversal, auth-bypass probes) -> triage by success confidence -> chained escalation to RCE via LFI->log-poisoning, SSRF->internal service attack, or upload->webshell, with per-step state and a final red-team report.",
+  "attack_vectors": [
+    "SQL/NoSQL injection (error-based + blind boolean/time)",
+    "Reflected & stored XSS with payload delivery",
+    "SSRF to internal/private service pivot",
+    "Path traversal / LFI -> log-poisoning RCE",
+    "Auth-bypass (JWT alg confusion, default creds, cookie manipulation, parameter tampering)",
+    "File upload -> webshell, command-injection and SSTI probes"
+  ],
+  "autonomy_level": 9,
+  "dare_factor": 8,
+  "novelty_angle": "Instead of a monolithic scanner, webrain runs exploitation as an iterative planner-evaluator loop that feeds each vector's success/failure signal back into a triage model to re-rank and chain the next best step (e.g. XSS finding unlocks an SSRF pivot), rather than hammering vectors blindly in fixed sequence.",
+  "dependencies": [
+    "requests",
+    "beautifulsoup4/lxml (fingerprint + parse)",
+    "urllib (stdlib)",
+    "allowlisted CIDR via ipaddress",
+    "single-worker per-target queue"
+  ],
+  "effort_estimate": "XL",
+  "scope_gate": "Reads only a user-supplied allowlist: loopback, RFC1918 private ranges, and an explicit lab CIDR flag; every target IP/host/redirect and every chained pivot URL is re-validated against the allowlist before each request; any out-of-scope target aborts the run; WARN banner printed on first launch."
+}

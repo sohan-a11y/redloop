@@ -1,0 +1,12 @@
+{
+  "round": 28,
+  "dare": 10,
+  "name": "RECOIL-v2",
+  "mechanism": "OS-primitive allowlist canonicalization: the OS-layer command/task/registry allowlist is re-validated the SAME way destinations are \u2014 the canonicalizing resolver walks it, refuses any entry that could side-effect, and asserts the resolved primitive is on the enum before every OS invocation, so the same scope-discipline discipline applies to real execution as to network bytes.",
+  "what_it_does_previous_couldnt": "HTTP bytes were allowlist-revalidated per probe, but OS invocations relied on a static enum checked once at config time. Re-canonicalizing the OS allowlist per invocation extends the 're-validated before every byte leaves' discipline to every real subprocess/registry write, closing the last gate-drift surface.",
+  "fireback": "The operator can attempt to smuggle an OS command through a rotated or aliased spelling and watch it be refused at the per-call re-validation \u2014 the tool's own discipline now defends the operator's box from its own (deliberately provoked) mistakes. Fireback = the safety rail fails safe under adversarial tamper.",
+  "containment": "The OS allowlist is a hard enum re-resolved per call; side-effectful commands are structurally absent; shell=False; hosts re-resolved via scope.py; marker-gated so only engagement-owned artifacts are ever touched by OS writes.",
+  "kill_switch": "--os-audit-only flips all OS writes to simulated (no real subprocess/registry/task), leaving only reads/queries live; wipe removes all real OS artifacts and SHA-verifies zero survivors.",
+  "honest_self_score": 10,
+  "novelty_angle": "The lab's core safety invariant \u2014 're-validated before every byte leaves' \u2014 is applied end-to-end to REAL OS execution, so the byte-gate and the execution-gate are the same rigor. Safety discipline no longer drops off at the process boundary."
+}

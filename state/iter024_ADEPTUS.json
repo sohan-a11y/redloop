@@ -1,0 +1,32 @@
+{
+  "name": "ADEPTUS",
+  "concept": "An autonomous identity-escalation attacker for allowlisted lab web apps: crawls and harvests session artifacts (JWTs, cookies, role params), runs live token-schema inference to learn the app's auth grammar, mutates tokens against an escalation brain (alg confusion, HS256 rebase, HMAC brute, cookie/signature stripping, IDOR, role-param), climbs to the highest-privilege authenticated state, and wherever an SSRF sink surfaces uses it as a pivot to map and reach internal-only services (emulated metadata backend included). An optional operator-facing 'measure' mode bundles a stdlib-only honeypot detector harness (threshold, timing-entropy, UA-fingerprint, burst-correlation) grading the campaign's detection noise with a score-vs-knob matrix \u2014 evasion measurable inside the lab, not a stealth claim.",
+  "merges": [
+    "HydraSession",
+    "ssrf-pivot-lance",
+    "ghost-thread"
+  ],
+  "attack_vectors": [
+    "JWT alg confusion + none/case-variant forging and RS256-to-HS256 rebase via discovered public keys",
+    "weak HMAC secret recovery (offline short-key/wordlist) then full token forgery",
+    "token replay & misuse: cross-endpoint replay, privilege rebinding, timestamp/expiry stretching",
+    "cookie tampering: signature stripping, role/flag bit-flip, predictable session-ID inference",
+    "IDOR object-ID traversal and role-parameter (isAdmin/groups[]/permission-claim) mutation escalation",
+    "SSRF sink discovery (url,next,redirect,uri,src,proxy,feed,fetch) with scheme/port/encoding-bypass canonicalized and proven in-allowlist",
+    "internal-surface mapping via SSRF pivot + file/gopher/dict reads + emulated 169.254.169.254 metadata token -> internal API auth",
+    "live token-schema inference: parse harvested samples to learn which fields the app's auth grammar checks, then mutate only those fields",
+    "optional measure mode: stdlib honeypot detector harness (threshold, timing-entropy, UA-fingerprint, burst correlation) grading per-campaign noise"
+  ],
+  "autonomy_level": 8,
+  "dare_factor": 7,
+  "novelty_angle": "The loop is driven by live token-schema inference (read the app's own auth grammar before mutating), an evidence-based escalation brain ranks mutants by credibility to minimize request noise, and SSRF pivoting is fused into the same escalation path \u2014 with a bundled stdlib-only detector harness making evasion a measurable lab dimension.",
+  "dependencies": [
+    "Python 3 stdlib only: http.server, urllib, base64, hmac, hashlib, ipaddress, socket, json, time, re, secrets",
+    "allowlist config file / --lab-cidr plus implicit loopback + RFC1918",
+    "optional PyJWT; pure-stdlib JWT parser otherwise",
+    "bundled session-secret wordlist + emulated 169.254.169.254 metadata endpoint (lab-only)",
+    "bundled stdlib-only honeypot detector harness for measure mode"
+  ],
+  "effort_estimate": "L",
+  "scope_gate": "Single canonicalizing resolver (loopback 127.0.0.0/8 + ::1, RFC1918, user --lab-cidr) gates every fetch, replay, mutation, escalation, SSRF pivot, and metadata path; all encoding variants normalized to canonical IP and hard-refused unless in-allowlist; metadata backend tied only to in-lab 169.254/16; callback listeners bound loopback; WARN banner + --confirm-lab on first run; honeypot detector runs only against operator-owned in-allowlist addresses."
+}

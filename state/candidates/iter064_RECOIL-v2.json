@@ -1,0 +1,12 @@
+{
+  "round": 24,
+  "dare": 10,
+  "name": "RECOIL-v2",
+  "mechanism": "Lab-UUID marker cascade: every OS artifact (scheduled task, Run-key, exec beacon, exfil file) carries the engagement lab-UUID, and the wipe walks the FULL cascade \u2014 each artifact's removal unblocks the next in dependency order \u2014 then runs a SHA-256 zero-survivor audit over every node, proving no marker survives anywhere.",
+  "what_it_does_previous_couldnt": "Wipe removed artifacts greedily; if one removal depended on another having succeeded, order could leave a straggler. The marker cascade makes removal order-aware and dependency-complete, and the SHA-audit enumerates EVERY node so zero-survivor is exhaustive, not sampled.",
+  "fireback": "The operator sees the wipe report list every cascade node with its SHA-256 and the final zero-survivor verdict \u2014 the full set of what was planted and what is now gone. Fireback = perfect forensic honesty: nothing the tool made is left to be found later.",
+  "containment": "The cascade touches only engagement-marker artifacts on the operator's host (prefix/hive scoped); every removal target is asserted to carry the marker before deletion; the audit covers only marker-carrying paths; nothing outside scope is ever touched.",
+  "kill_switch": "The kill-switch IS this cascade wipe: it removes each node in dependency order, re-queries/re-reads to prove absence, and emits the exhaustive zero-survivor audit. A --cascade-dry flag previews the removal order before any byte is touched.",
+  "honest_self_score": 10,
+  "novelty_angle": "Cleanup is elevated to an order-aware, dependency-complete, exhaustively-audited graph walk over the engagement's own marker cascade \u2014 reversible persistence by construction where removing everything is as rigorous as planting it."
+}

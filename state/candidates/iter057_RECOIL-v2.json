@@ -1,0 +1,12 @@
+{
+  "round": 17,
+  "dare": 10,
+  "name": "RECOIL-v2",
+  "mechanism": "Ladder-state journal: the entire campaign \u2014 every (host, family, axis) node, every state-vector, every promotion decision and its matched-materiality gate result \u2014 is serialized into a single inspectable DAG (engagement.json) so the autonomous routing of the delta-grown campaign is fully auditable, not a black box.",
+  "what_it_does_previous_couldnt": "Evidence was a linear event log; the ROUTE (why host B was picked after host A via the R6 orchestrator) was implicit. The journal reifies the ladder as a graph every promotion is a node, every gate pass/fail an edge, so the campaign's self-routing is provably explainable to the operator.",
+  "fireback": "The operator opens engagement.json and can replay WHY the box climbed \u2014 which axis delta on which host justified moving to which next target. Fireback = the operator holds full X-ray truth of the tool's decisions; the tool cannot claim a smart route it cannot show.",
+  "containment": "The journal holds only in-scope state vectors and host identities from the fixed allowlist; it is written under the per-engagement report dir and is fully removed by the kill-switch wipe; no out-of-scope address is ever recorded.",
+  "kill_switch": "The journal is regenerable from any wipe survivor or destroyed by wipe; a --no-journal mode suppresses graph serialization; the DAG is gated by the engagement marker so only markered engagements are journaled.",
+  "honest_self_score": 10,
+  "novelty_angle": "Autonomy and accountability fused: a delta-grown, self-routing campaign that is simultaneously a fully serialized, inspectable decision graph. The tool's learning is not asserted in prose but rendered as a replayable DAG the operator can interrogate node by node."
+}

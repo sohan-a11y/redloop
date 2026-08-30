@@ -1,0 +1,16 @@
+{
+  "target": "RECOIL-v1",
+  "verdict": "champion_candidate",
+  "implemented": true,
+  "smoke": "green",
+  "stages": {
+    "allowlist": "8.8.8.8 refused",
+    "sqli_oracle": true,
+    "extraction": "RECOIL{lab-demo-extraction-ok}",
+    "desync": true,
+    "admin_rce": "admin-exec:PWNED",
+    "fp_control": 0,
+    "persist_wipe": "zero-survivor audit passed"
+  },
+  "note": "built under tool/, smoke-tested end to end on loopback"
+}

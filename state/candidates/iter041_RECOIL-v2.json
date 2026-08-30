@@ -1,0 +1,12 @@
+{
+  "round": 1,
+  "dare": 9.1,
+  "name": "RECOIL-v2",
+  "mechanism": "Promote the state vector from a (length, status) pair to a genuine 3D (length, status, timing) triple. The mutation chooser now scores every probe jointly on all three axes: abs(len_delta) x status-grammar-shift x normalized timing spread (e.g. zscore of ms vs family baseline). Timing becomes a first-class discriminator, not an echo annotation.",
+  "what_it_does_previous_couldnt": "RECOIL-v1 picks mutations purely on body-length and status; a blind boolean leg that leaks truth only through response latency (timing oracle) is invisible to it. The 3D state space lets a slow-vs-fast split be a landed primitive \u2014 the nozzle widens to timing-delimited boolean legs a length-only scanner structurally cannot see.",
+  "fireback": "The box now answers in three dimensions. When sqli-b's oracle is only timing-visible, the operator first sees it as 'the tool hesitating' \u2014 variable latency \u2014 then the extracted flag rolls out. RECOIL literally takes longer to strike, and that time IS the aim.",
+  "containment": "Timing is measured against the bundled fixture's own (len,status,ms) baseline only, an in-allowlist loopback target; no cross-host timing is ever compared. The canonicalizing allowlist resolver re-validates every destination before each probe.",
+  "kill_switch": "--max-timing-reps flag caps timing probes per axis; a per-axis budget escape hatch terminates the timing leg. Evidence journal records every timing delta so the operator sees exactly which axis consumed budget.",
+  "honest_self_score": 9.1,
+  "novelty_angle": "The RECOIL fireback thesis generalized: a response DELTA is multi-axial, so the learning signal becomes a vector, not a scalar. Static scanners are 1-axis; RECOIL-v1 is 2-axis; this is the first axis-promotion that changes which primitives are even detectable, not just survivable."
+}

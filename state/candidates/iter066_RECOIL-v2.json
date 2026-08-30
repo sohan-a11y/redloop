@@ -1,0 +1,12 @@
+{
+  "round": 26,
+  "dare": 10,
+  "name": "RECOIL-v2",
+  "mechanism": "Scramble-key escrowed kill-switch: the rotor's byte sequence is anchored to an engagement scatter-key that is escrowed to a marker file, so even mid-rotor the operator can deterministically reproduce any probe AND can fire a scramble that collapses the rotor to identity \u2014 making the kill-switch provably effective against a live, rotating campaign.",
+  "what_it_does_previous_couldnt": "A rotor-live campaign seemed harder to stop cleanly because every probe differs. The escrow means the operator holds the key that: (a) replays any byte-exact probe for forensics, and (b) clamps the rotor to identity, so 'stop everything' works deterministically regardless of how many rotor states had been visited.",
+  "fireback": "The operator mid-campaign fires the scramble and watches the rotor snap to identity \u2014 the next probe is byte-identical and trivially inspectable, proving the kill took hold against a live rotating engine. Fireback = control over a moving target is demonstrated in real time.",
+  "containment": "The scatter-key is a random per-engagement value stored only in the marker-gated report dir; scramble collapses the rotor to a deterministic identity seed; all hosts remain in-allowlist bundled fixtures; marker-scoped.",
+  "kill_switch": "This IS the kill-switch mechanism: the escrowed key both replays (forensics) and scrambles-to-identity (halt). Any engagement without a recoverable escrow key refuses to start; wipe removes the key and SHA-verifies zero survivors.",
+  "honest_self_score": 10,
+  "novelty_angle": "Kill-switch warranty on a rotating engine: a deterministic escrow ensures the operator can always reproduce OR halt the rotor exactly \u2014 mutability of the offense is matched by a provable handle for its owner. Control scales with the very complexity that created it."
+}

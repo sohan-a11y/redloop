@@ -1,0 +1,20 @@
+{
+  "name": "ssrf-pivot-lance",
+  "concept": "Discovery and exploitation tool that finds SSRF sinks in allowlisted lab web apps via fuzzing URL/redirect/proxy parameters across GET/POST/JSON bodies, then uses each confirmed SSRF as a pivot to reach internal-only services (internal HTTP ports, emulated cloud-metadata endpoints, internal admin panels) and chains SSRF into file reads or blind RCE (metadata token -> internal API auth).",
+  "attack_vectors": [
+    "parameter-based SSRF sink discovery (url,next,redirect,uri,path,src,proxy,feed,fetch) via payload mutation + reflection/delay-outbound detection",
+    "scheme/port allowlist bypass (127.0.0.1 vs 0177.0.0.1, IPv6 ::1, decimal/hex IPv4, lab DNS-rebinding aliases)",
+    "local file access via file:// , gopher:///dict:// to reach internal app internals and leak configs/tokens",
+    "cloud-metadata pivot (emulated 169.254.169.254) to mint creds that authenticate to internal admin API and trigger blind command execution"
+  ],
+  "autonomy_level": 7,
+  "dare_factor": 7,
+  "novelty_angle": "placeholder",
+  "dependencies": [
+    "stdlib only: http.server callback listener, socket, urllib, ssl, json, re",
+    "self-owned internal services: Flask test app with SSRF sink(s), internal admin API, emulated 169.254.169.254 metadata endpoint",
+    "user-supplied lab CIDR from config/env"
+  ],
+  "effort_estimate": "L",
+  "scope_gate": "Every target and every outbound pivot host is resolved through a CIDR/loopback allowlist resolver: SSRF candidates extracted only from hosts already on lab CIDR or loopback, metadata endpoint honored only when it resolves inside the emulated 169.254/16 lab subnet, red WARN banner on first run plus explicit --confirm-lab flag before any external socket opens."
+}

@@ -1,0 +1,12 @@
+{
+  "round": 12,
+  "dare": 10,
+  "name": "RECOIL-v2",
+  "mechanism": "Second OS persistence vector \u2014 winreg Run-key: a marker-tagged HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run entry (stdlib winreg) carrying the engagement lab-UUID, created as a redundant persistence path alongside the scheduled task, both marker-gated and both covered by the same SHA-256 wipe.",
+  "what_it_does_previous_couldnt": "R10/R11 gave a single persistence vector (schtasks). A defender who only hunts scheduled tasks would miss the Run-key survivor; two marker-tagged vectors make persistence genuinely redundant so the operator practices clearing BOTH registry and scheduler footpaths.",
+  "fireback": "The operator clears the scheduled task but the Run-key still fires at next interactive logon; they must clear BOTH. Fireback = redundancy forces complete, not partial, cleanup practice \u2014 and the evidence journal shows both vectors so nothing is hidden by the tool.",
+  "containment": "Run-key added only under HKCU (the operator's own hive), operator-consented with --confirm-lab, marker-tagged with the engagement uuid, value pointing only at a bundled loopback beacon; winreg is stdlib. The allowlist resolver re-validates the beacon host before it ever runs.",
+  "kill_switch": "Wipe deletes the markered Run-value, re-reads the hive to assert its absence, and includes it in the SHA-256 zero-survivor audit alongside the scheduled-task clean; a --no-registry flag disables this vector entirely.",
+  "honest_self_score": 10,
+  "novelty_angle": "Redundant, marker-gated, operator-owned persistence across two real win32 footpaths (scheduler + registry) both bounded by one provable kill-switch \u2014 turning single-path persistence into a redundancy-bounded recovery drill the operator must fully clear."
+}

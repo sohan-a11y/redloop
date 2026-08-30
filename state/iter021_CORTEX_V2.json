@@ -1,0 +1,28 @@
+{
+  "name": "CORTEX_V2",
+  "concept": "Autonomous protocol-agnostic attacker whose decision-theoretic triage brain ranks and executes a plug-in registry \u2014 banner/version-classification, service-specific misconfig operators, weak-credential operators with context-derived dictionaries, HTTP response-differential probes \u2014 against allowlisted lab targets, feeding every attempt's outcome signal plus response-code->lock-state inference back into survivor promotion, dead-path pruning, budget refunds, and lockout-aware pacing. A single scope-checked dial wrapper re-validates every host/IP before any byte leaves the box; session closes with an evidence-preserving red-team report (request/response pairs, timings, exit codes, cost-per-triage).",
+  "merges": [
+    "CORTEX",
+    "switchblade",
+    "lockstep"
+  ],
+  "attack_vectors": [
+    "service banner/version fingerprint signature-table match -> canned misconfig operators (SSH/FTP/SMTP/HTTP/MySQL/Postgres/Redis/SMB)",
+    "context-derived weak-credential operators: dictionaries from hostnames/banners/default-cred tables, lock-inference-aware backoff, hard attempt caps",
+    "HTTP response-differential probes -> web plug-in selection and confidence scoring",
+    "TLS certificate metadata -> exact-version pinning before high-impact plug-in launch",
+    "post-attempt outcome-feedback re-ranking: prune dead paths, promote survivors, refund attempt budget per evidence"
+  ],
+  "autonomy_level": 7,
+  "dare_factor": 5,
+  "novelty_angle": "A single evidence loop where credential-hit responses feed lock-state inference directly back into triage re-ranking, so next best step is decided by what the target's own response grammar taught it; report scores every path by cost-per-evidence.",
+  "dependencies": [
+    "Python stdlib only: socket, ssl, http.client, urllib, json, ipaddress, time, re, hashlib, subprocess",
+    "plug-in manifest registry (JSON: preconditions, confidence, impact, attempt cost, lab-safety flag)",
+    "allowlist config file (loopback/RFC1918 + user lab CIDR)",
+    "small embedded default-credential tables and wordlists",
+    "disposable lab targets (1-2 containers: exposed Redis/Postgres/FTP + weak-cred web app)"
+  ],
+  "effort_estimate": "L",
+  "scope_gate": "Single scope-checked dial wrapper re-validates every host/IP against allowlist (loopback + RFC1918 + user lab CIDR) before any byte leaves the box; WARN banner; plug-ins blocked if preconditions reference out-of-allowlist addresses; re-asserted per attempt."
+}

@@ -1,0 +1,12 @@
+{
+  "round": 15,
+  "dare": 10,
+  "name": "RECOIL-v2",
+  "mechanism": "Timing-covert subsidiary exfil channel: the 3D state space itself is exploited as a carrier \u2014 the response TIMING axis (a real ms difference the fixture controls on a /tick endpoint) is modulated to carry bits, blended with the length-channel bitstream, and both demultiplexed at the sink. A third, latency-based channel rode in on the same state-vector axes.",
+  "what_it_does_previous_couldnt": "Length and status were data channels; timing was only a scoring signal. Now the ms axis transports data \u2014 a covert second bitstream modulated into response latency and reconciled at the sink. That is 'the box talks back in time', a genuinely different carrier than its HTTP body.",
+  "fireback": "The operator sees a /tick endpoint return identical bodies on every call yet arrive at quantized latencies that encode data \u2014 the operator cannot read the exfil by looking at bytes at all, only by measuring time. Fireback = the target's response TIMING, previously only the aim, becomes a live output channel.",
+  "containment": "The timing carrier is engineered on a bundled loopback /tick fixture whose delay is bounded ([0, 50ms], integer-mapped); both bitstreams terminate in-allowlist; timing is measured only against the bundled host's own baseline; no cross-host timing comparison exists.",
+  "kill_switch": "--timing-chan off disables the latency-modulated carrier so /tick returns constant latency; a per-axis budget caps the number of timing-modulated requests; wipe clears the demux reconstruction artifacts.",
+  "honest_self_score": 10,
+  "novelty_angle": "The RECOIL 3D state-space, born as a scoring mechanism, becomes its own covert carrier \u2014 data modulated into response latency and blended with the body-length channel. The mechanism that AIMED the loop now also carries its payload, a closed self-referential fireback."
+}

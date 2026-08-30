@@ -1,0 +1,12 @@
+{
+  "round": 5,
+  "dare": 9.5,
+  "name": "RECOIL-v2",
+  "mechanism": "Blind SSRF born from a smuggling primitive: add an origin endpoint that, when the smuggled request is dequeued as its own next request, performs a server-side internal fetch (GET /internal/secret on the same origin) and returns the fetched bytes in the desynced response. The CL.TE stitch now yields a SECOND read/write channel \u2014 the smuggled request is not just a parallel path but a server-side SSRF that reaches a pipe the direct client can't.",
+  "what_it_does_previous_couldnt": "RECOIL-v1's desync only re-routes to /basic and /admin/exec. There is no server-side-fetch primitive, so the client can never read the internal endpoint. Now the weaponized smuggled request triggers a trusted internal fetch whose output comes back over the smuggling channel \u2014 a read channel that exists ONLY because the desync happened.",
+  "fireback": "The operator sees a value arrive that no client request could legitimately reach from outside \u2014 the origin 'told on itself' to the smuggler. The box talks back with bytes it was only meant to reveal to its own internal code path. That is the SSRF-from-smuggling fireback: the target's internal trust, flipped into a client-facing read.",
+  "containment": "The internal fetch target is a fixed bundled origin path (/internal/*) on the same loopback origin service, in-allowlist and re-validated. The fixture's fetch is hard-bound to its own loopback path, structurally incapable of resolving out-of-allowlist URLs (the allowlist resolver is invoked server-side on the fetch URL too).",
+  "kill_switch": "--ssrf-leg off disables the internal-fetch route so smuggled requests only re-route to the RCE sink; the fetch URL is allowlist-revalidated server-side and a deny-list rejects any non-/internal path; wipe cleans the fetch-evidence artifacts.",
+  "honest_self_score": 9.5,
+  "novelty_angle": "The stockyard's 'blind SSRF FROM a smuggling primitive' made concrete: the desync primitive is not just an auth/RCE delivery vehicle \u2014 it composes into a server-side fetch giving a second data channel. Two independent read channels now share one framing primitive, which the later rounds will blend."
+}

@@ -1,0 +1,29 @@
+{
+  "target": "syncope",
+  "lab_safety": {
+    "verdict": "pass",
+    "reason": "Exemplary scope story: per-probe ipaddress resolver re-validates front, origin, AND patched control against allowlist before every request with per-probe DNS-rebinding re-resolve; WARN banner + hard-refuse; RCE/persistence/beacon/wipe gated on per-engagement lab-UUID marker; SHA-256 cleanup scoped to own markers only; no AI-safety evasion, no real/third-party coverage."
+  },
+  "scores": {
+    "feasibility": 5,
+    "originality": 7,
+    "dare": 7,
+    "effort_value": 6,
+    "mission_fit": 9
+  },
+  "overall": 7.5,
+  "verdict": "shortlist",
+  "must_fix": [
+    "De-risk docker-compose topology: prove it runs on win32 or ship stdlib local-fixture pair emulating the CL.TE/TE.CL gap so smoke tests are not environment-blocked",
+    "Cut weaponization to ONE primary chain (FE auth-bypass -> admin RCE); cache-poisoning/stored-XSS optional flags",
+    "Reduce XL to M/L: defer mini-C2 to loopback-stub heartbeat, persistence default fake-scheduler mode, zero-survivor audit scoped to lab-UUID marker",
+    "Define per-technique p-value/FP-rate headline objectively on paper; patched-control proxy a required service, not optional",
+    "Wire discover step or declare compose topology explicitly",
+    "Verify raw byte-level CL/TE framing works over loopback on win32"
+  ],
+  "evolve_hints": [
+    "Run A/B control arm as load-bearing differentiator: emit per-technique FP-rate from patched-control replay as report headline gating weaponization",
+    "Split delivery into staged milestones (detection+control arm, weaponization->RCE, persistence/C2/wipe tail) so each leg survives early session end",
+    "Position syncope as champion harness with ADEPTUS/backflow/CORTEX_V2 folded in as config-selected alternate spines sharing the same scope gate + evidence-report writer"
+  ]
+}

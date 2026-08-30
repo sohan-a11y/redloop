@@ -1,0 +1,12 @@
+{
+  "round": 3,
+  "dare": 9.3,
+  "name": "RECOIL-v2",
+  "mechanism": "Cross-family data-flow closure: the flag extracted by the sqli-b blind oracle is not just read to stdout \u2014 it is fed as the secret token into the desync chain's admin sink auth (fixtures._admin requires X-Auth == secret). The sqli extraction becomes the credential that unlocks the desync-fronted RCE. Data physically moves from family A to family B.",
+  "what_it_does_previous_couldnt": "RECOIL-v1 runs sqli extraction and the desync weaponization as two independent tracks that never exchange values; the admin RCE is gated on a hardcoded fixture secret. Now the blind oracle's output IS the key, so extraction is no longer a demonstration end-state but a live step in the weaponization spine \u2014 a value that must be read before RCE is even reachable.",
+  "fireback": "Truly coupling them means a single bit error in the blind extraction (one wrong character read over the length-delta oracle) locks the operator's own box out of RCE. The operator experiences the fragility of a blind channel as a real gating failure \u2014 fireback is the cost of faith in a compression-based oracle.",
+  "containment": "The secret token exists only inside the bundled fixture's in-memory rows (fixtures.EXTRA); it is never exfiltrated off loopback and never touches any host outside the allowlist. The canonicalizing resolver re-validates every probe destination.",
+  "kill_switch": "--close-families off (default on flips to isolation mode) separates the tracks so no extracted value is ever reused as an auth token; wipe removes all extracted-secret artifacts from the engagement stash.",
+  "honest_self_score": 9.3,
+  "novelty_angle": "First-a-real-dataflow-across-families: the exploit families stop being parallel demo tracks and become a resource-flow DAG where one family's read is another's credential \u2014 turning 'blind read' into 'blind privilege', with the fragility honestly surfaced as the fireback."
+}

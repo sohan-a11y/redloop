@@ -1,0 +1,12 @@
+{
+  "round": 25,
+  "dare": 10,
+  "name": "RECOIL-v2",
+  "mechanism": "Per-host federated learning model: each bundled host keeps its OWN response-delta model, and learned state is exchanged across hosts ONLY as explicit secret values, never as raw model internals \u2014 so one host's fitted noise baseline cannot contaminate another host's oracle, preserving per-host integrity.",
+  "what_it_does_previous_couldnt": "As the ladder grew (R4/R6/R16), learned deltas could bleed implicitly between hosts, risking a model trained on A biasing reads from B. Federating isolates each host's 3D model; cross-host transfer is exactly the secret-typed values, never model parameters.",
+  "fireback": "The operator can distort one host (e.g. add jitter) and watch the OTHER host's oracle stay clean \u2014 because models don't bleed. Fireback = the operator's interference on a single rung is contained to that rung; the ladder's other legs are provably uninfluenced.",
+  "containment": "Models live per-host on bundled loopback fixtures; cross-host edges are constrained to secret-typed values carrying the engagement marker; allowlist resolver governs every host model target; no model internals serialize out of scope.",
+  "kill_switch": "--shared-model resets to a single global model (opt-out of federation); per-host model wipe clears each; the marker gate prevents any un-markered cross-host value transfer.",
+  "honest_self_score": 10,
+  "novelty_angle": "The fireback learning loop is federated per-host with principled isolation \u2014 only secret-typed values cross boundaries, so the ladder's learning is parallel across hosts, not shared and contaminated. Multi-host autonomy with per-host epistemic hygiene."
+}

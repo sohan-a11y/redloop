@@ -1,0 +1,12 @@
+{
+  "round": 29,
+  "dare": 10,
+  "name": "RECOIL-v2",
+  "mechanism": "Report auto-synthesis from the ladder DAG: the final red-team report is generated directly from engagement.json (the R17 serialized decision graph) \u2014 each headline verdict cites the exact node, its 3D materiality-gate result, its control-twin 3D score, and its provenance, so NO verdict in the report is hand-written or uncheckable.",
+  "what_it_does_previous_couldnt": "Reports mixed synthesized prose with machine claims; a reader could not trace each headline to its raw evidence node. Auto-synthesis renders every verdict as a pointer into the auditable DAG with its gate + twin + rotor-state attached, making the whole report mechanically reproducible from engagement.json.",
+  "fireback": "The operator re-runs `recoil report --engagement <uuid>` and gets, byte-for-byte, the same report reconstructed purely from the journal \u2014 they can regenerate the entire narrative from raw state as many times as they like. Fireback = the report is a pure function of evidence, not a story the tool chose to tell.",
+  "containment": "The report renders only in-scope DAG nodes and evidence records, all marker-gated and written under the report dir; it re-runs the allowlist resolver over cited hosts at generation time; wipe removes the report artifacts and SHA-verifies zero survivors.",
+  "kill_switch": "--no-synth omits synthesis (raw journal only); every synthesized verdict is derivable from the journal and regenerable; wipe clears the report dir and the engagement DAG together.",
+  "honest_self_score": 10,
+  "novelty_angle": "The autonomous campaign's own decision graph becomes its report writer: the narrative is a deterministic rendering of the auditable DAG, so the tool cannot narrate a smarter story than it actually executed. Report-as-pure-function-of-journal closes the honesty loop."
+}

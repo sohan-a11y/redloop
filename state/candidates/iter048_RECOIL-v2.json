@@ -1,0 +1,12 @@
+{
+  "round": 8,
+  "dare": 9.8,
+  "name": "RECOIL-v2",
+  "mechanism": "Matched-materiality 3D gate: stage promotion is no longer decided by ad-hoc per-axis thresholds but by a normalized, honest significance function over the full (length, status, timing) triple \u2014 a delta is 'material' only when it clears a joint significance bound derived from the family's own baseline noise, and the same gate is applied to the patched-control twin. Escalation promotes only on respect for the 3D gate.",
+  "what_it_does_previous_couldnt": "RECOIL-v1 promotes on raw length/status deltas and a hand-tuned ORACLE_THRESHOLD; it cannot say WHY it promoted, and it has no honest bound on false promotion. The matched-materiality gate makes every promotion a falsifiable claim with a measured noise floor, and requires the patched twin to fail the same gate before a primitive is blessed.",
+  "fireback": "The operator can now interrogate WHY the ladder climbed \u2014 every promotion cites its (len,status,ms) triple against the noise bound. Fireback = any stage that climbed on noise is exposed as such in the evidence journal; the tool cannot hide a fluke behind an escalation. The box is forced to justify each rung to the operator.",
+  "containment": "Noise baselines are computed only from the bundled fixture's own responses (in-allowlist); the patched twin is a bundled control on loopback. The gate is a pure function of in-scope state vectors and never touches a destination outside the allowlist.",
+  "kill_switch": "--gate-clear off flips the gate to permissive (audit-only) mode so no promotion is blocked; the 3D gate is fully recomputable from the evidence journal, and wipe SHA-verifies zero survivors after demotion.",
+  "honest_self_score": 9.8,
+  "novelty_angle": "The RECOIL fireback loop gains an honest epistemology: every escalation is a tested 3D hypothesis about the target's response space, with a measured noise floor and a control twin required to disagree. 'Advance only on a delta the target itself must attest to' \u2014 evidence-gating made three-dimensional and self-auditing."
+}

@@ -1,0 +1,23 @@
+{
+  "name": "ghost-thread",
+  "concept": "A lab-scoped attack runner that coats every stage of the discovery->persistence chain in a deliberate OPSEC layer: randomized inter-action jitter, staggered connection pooling from rotating egress identities, per-request UA/banner mimicry mirroring the lab's benign host profiles, and full session rotation so no two contact events lineage cleanly. A dead-man kill-switch (heartbeat lease + wipe-on-arrears) lets the operator cleanly pop the chain and tear down all local artifacts, simulating evasion of a defensive lab honeypot and nothing else.",
+  "attack_vectors": [
+    "jittered-timing burst pacing that defeats threshold-based honeypot alerting",
+    "staggered multi-connection pools rotating source sockets mid-campaign",
+    "UA/banner mimicry mirroring profiled benign lab traffic to dodge fingerprint heuristics",
+    "session rotation + ephemeral egress identities desynchronizing contact-event lineage",
+    "dead-man kill-switch lease for clean teardown/wipe simulating operator abort under monitoring"
+  ],
+  "autonomy_level": 8,
+  "dare_factor": 8,
+  "novelty_angle": "Most attack chains optimize speed or stealth-as-flavor; ghost-thread treats OPSEC as a first-class, measurable property \u2014 exposing a configurable steering surface (jitter distribution, pool stagger, mirror profiles, kill-switch grace) so a lab operator can A/B how each evasion layer affects honeypot detection scores, instead of a hardcoded 'slow and quiet' box.",
+  "dependencies": [
+    "stdlib socket/threading for connection pools",
+    "optional scapy for egress identity rotation",
+    "lab defensive honeypot (e.g. cowrie/dshield/elastic) for scoring",
+    "host-profile mirror dataset scraped from benign lab traffic",
+    "JSON state store for session/lease tracking"
+  ],
+  "effort_estimate": "XL",
+  "scope_gate": "Mandatory WARN banner on first run; allowlist resolver only accepts loopback (127.0.0.0/8, ::1), RFC1918 private ranges, and user-supplied lab CIDR (--lab-cidr); every target/source validated before any socket opens; hard refuse if target resolves outside or allowlist empty."
+}

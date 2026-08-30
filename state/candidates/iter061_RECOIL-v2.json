@@ -1,0 +1,12 @@
+{
+  "round": 21,
+  "dare": 10,
+  "name": "RECOIL-v2",
+  "mechanism": "OS-exec double-tap with reliability: the real OS subprocess primitive (R9) is re-fired >=N reps under the live rotor (R13), and its output is compared against the mapped known-output of the allowlisted command each rep; only when N reps agree is the OS-exec verdict marked reliable and replayed to the operator.",
+  "what_it_does_previous_couldnt": "R9 executed once and reported. A single real execution could be noise, a race, or an environment quirk. OS-exec double-tap demands N agreeing real executions before the operator is shown a 'confirmed' OS fact \u2014 the same double-tap doctrine that validates HTTP primitives, now applied to real host execution.",
+  "fireback": "The operator watches RECOIL run the same OS command N times under rotating bytes and only then assert the result \u2014 a single flaky run is visibly discarded. Fireback = the tool will not over-claim its own real execution; the operator sees honest, repeated evidence, not a one-shot boast.",
+  "containment": "The command remains a hard allowlist enum (side-effect-free probes with mapped outputs), shell=False, no arg passthrough; N is operator-capped (--os-reps); all executions run under the operator's account on loopback; marker-gated; allowlist resolver re-validates fixture hosts.",
+  "kill_switch": "--os-exec off disables real execution; --os-reps 0 skips the reliability leg; wipe terminates any live child and SHA-audits zero exec artifacts; the allowlist enum can never be expanded by the operator of the tool without source change.",
+  "honest_self_score": 10,
+  "novelty_angle": "Reliability doctrine \u2014 born to stop a flaky HTTP primitive from escalating on noise \u2014 is extended to REAL OS execution: N agreeing real subprocess runs behind a rotor before a host fact is asserted. One measurement language governs every bleeding primitive, HTTP or OS."
+}

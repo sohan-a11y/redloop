@@ -1,0 +1,12 @@
+{
+  "round": 9,
+  "dare": 9.9,
+  "name": "RECOIL-v2",
+  "mechanism": "Real OS-level execution EVIDENCE on the operator's box: the campaign spawns a REAL subprocess under a strict, narrow command allowlist (whitelisted, side-effect-free commands mapped to known outputs \u2014 e.g. `ver`, `whoami /groups`-style metadata, or a fixture-registered `echo`) inside the bundled fixture's exec sink, captures stdout+exit-status, and replays the live output to the operator in the report. This is a real contained primitive: actual OS execution, sandboxed to a command allowlist.",
+  "what_it_does_previous_couldnt": "RECOIL-v1's RCE sink was a SIMULATED echo (`_safe_exec` parses the string and fakes the output); no OS process ever ran. This is the first stage where the bounds of the lab cross onto the operator's real host \u2014 a genuine subprocess fires, its real bytes come back, and the operator SEES that the box it owns actually executed.",
+  "fireback": "The operator's own win32 box visibly runs a real command under RECOIL's control and the live result is replayed \u2014 `RECOIL OS-EXEC [ver] -> Microsoft Windows [...]`. That is the box talking back with real host state, not a fixture's imitation. 'I'm ready to handle it' is now exercised against real execution evidence on the operator's machine.",
+  "containment": "The exec sink is a strict command allowlist: a fixed enum of side-effect-free probes (ver, exit-code-of-true, a fixture-scoped echo) mapped to known outputs, invoked via subprocess with shell=False and no argument injection; anything not in the allowlist is refused. It runs under the operator's own account on loopback; allowlist resolver re-validates all fixture hosts; the per-engagement lab-UUID marker gates that this sink executes at all.",
+  "kill_switch": "--os-exec off disables the real subprocess path entirely (falls back to simulated output); the command allowlist is a hard enum with no free-form passthrough; wipe kills any live child and the SHA-256 zero-survivor audit proves no exec artifact survives.",
+  "honest_self_score": 9.9,
+  "novelty_angle": "The stockyard's 'real OS-level execution EVIDENCE' made concrete and honest: real subprocess, strict allowlist, output replayed \u2014 the primitive genuinely reaches the operator's OS while remaining a contained, reversible, side-effect-free probe. This is the fireback delivered in real host bytes, not fixture theater."
+}

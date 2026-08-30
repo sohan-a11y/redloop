@@ -1,0 +1,27 @@
+{
+  "target": "CORTEX",
+  "lab_safety": {
+    "verdict": "pass",
+    "reason": "Central scope-checked dial wrapper re-validates every socket/packet against state/allow.conf (loopback+RFC1918+lab CIDR) before bytes leave, WARN banner on first run with non-zero exit on out-of-scope, plug-in blocked if preconditions reference out-of-allowlist addresses, no AI-safety evasion claim, no real-target coverage."
+  },
+  "scores": {
+    "feasibility": 8,
+    "originality": 6,
+    "dare": 5,
+    "effort_value": 7
+  },
+  "overall": 6.5,
+  "verdict": "evolve",
+  "must_fix": [
+    "Bundle >=3 concrete working plug-ins (banner->CVE match, TLS-cert exact-version pin, HTTP response-differential probe) so triage/re-rank loop is demonstrable",
+    "Anchor to the end-to-end mission chain: meta-brain covers triage+report (3,7) but not exploit/payload/persist (4-6); wire at least one plug-in to a full probe->RCE dossier",
+    "Correct declared dare_factor (7->~5): inert declarative plug-ins are architecture, not offense; honest position is decision brain + evidence synthesis",
+    "Pin the evidence-report schema (request/response/timing/exit-code records) up front"
+  ],
+  "evolve_hints": [
+    "Merge with webrain or switchblade: their vector breadth becomes the plug-in library, CORTEX supplies the decision brain and evidence-preserving report \u2014 one coherent tool instead of three overlapping 'smart triage brain' concepts",
+    "Make the plug-in manifest a tested external contract (schema + validator) so precondition-confidence gate is unit-testable",
+    "Add attempt-budget/refund policy as a measurable output (cost-per-triage metric in the report)",
+    "Replay a real probe sequence against the disposable lab target to showcase survivor-promotion/dead-path-prune re-ranking"
+  ]
+}

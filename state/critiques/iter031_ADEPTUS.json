@@ -1,0 +1,26 @@
+{
+  "target": "ADEPTUS",
+  "lab_safety": {
+    "verdict": "pass",
+    "reason": "Single canonicalizing allowlist resolver gates every fetch/replay/mutation/escalation/SSRF-pivot/metadata path, normalizes all encoding variants to canonical in-scope IP, metadata backend tied only to emulated 169.254/16, callbacks loopback, WARN banner + --confirm-lab. HMAC brute offline; honeypot detector only against operator-owned in-allowlist addresses. No real/third-party targeting, no AI-safety evasion."
+  },
+  "scores": {
+    "feasibility": 6,
+    "originality": 6,
+    "dare": 7,
+    "effort_value": 7,
+    "mission_fit": 5
+  },
+  "overall": 6,
+  "verdict": "evolve",
+  "must_fix": [
+    "Declared effort L dishonest: core + SSRF/metadata leg + measure-mode honeypot harness is M/XL surface; cut or defer measure-mode and/or SSRF legs",
+    "Mission chain gap: stops at highest-privilege authenticated state (stages 1-4 + partial report); never reaches payload/execution (5), persistence (6), or engagement report (7)",
+    "Measure mode is recycled ghost-thread and duplicates already-dinged effort"
+  ],
+  "evolve_hints": [
+    "Anchor differentiator on live token-schema inference + credibility-ranked escalation to proven admin-auth, proven with bundled flawed-JWT fixture + patched control",
+    "Bolt an RCE/payload + persist+report tail onto the admin-climb, or position ADEPTUS as identity/escalation vertical feeding a full-chain champion",
+    "Keep only the metadata-internal-API escalation of the SSRF fusion if it advances the climb; drop the rest"
+  ]
+}

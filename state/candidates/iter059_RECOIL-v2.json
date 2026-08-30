@@ -1,0 +1,12 @@
+{
+  "round": 19,
+  "dare": 10,
+  "name": "RECOIL-v2",
+  "mechanism": "Control-twin 3D FP-gate: the patched-control twin is now scored on the SAME 3D (length, status, timing) materiality gate as the vulnerable fixture, and a primitive is only blessed when the vulnerable host clears the gate on all three axes AND the patched twin fails the identical gate on all three axes. FP is measured in the same multi-axial language IP is measured in.",
+  "what_it_does_previous_couldnt": "R8's gate compared the twin roughly; this makes the twin complicit in 3D \u2014 a primitive is false-positive only when THREE independent axes on the control disagree with the vulnerable host. That raises the bar: a twitch in timing alone, or length alone, no longer earns FP status.",
+  "fireback": "The operator sees the FP verdict now cite all three axes with the twin's 3D score \u2014 a control that drifts in timing but not length is no longer silently called a false positive. Fireback = the tool refuses to bless a fluke hiding behind any single axis; the operator must falsify a 3D claim, not a 1D one.",
+  "containment": "Control twin is a bundled loopback fixture, in-allowlist; its 3D scoring uses only its own in-scope baselines; no comparison ever touches an out-of-allowlist host; marker-gated.",
+  "kill_switch": "--fp-axes `1` drops to single-axis FP comparison; --gate-clear off disables the gate (audit-only); the twin's 3D scores are journaled so any FP waiver is visible; wipe clears twin-state artifacts.",
+  "honest_self_score": 10,
+  "novelty_angle": "False-positive is reframed as a joint claim across length, status, AND timing \u2014 a control twin that must fail all three. Reliability, like the exploit signal itself, becomes multi-axial and falsifiable, closing the loop where the RECOIL measurement language is used to audit itself."
+}

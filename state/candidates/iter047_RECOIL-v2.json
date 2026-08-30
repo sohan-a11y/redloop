@@ -1,0 +1,12 @@
+{
+  "round": 7,
+  "dare": 9.7,
+  "name": "RECOIL-v2",
+  "mechanism": "Dual-channel blended exfiltration: an operator-placed secret (a symmetric file marker placed under the fixture's data dir) is exfiltrated over BOTH channels simultaneously \u2014 character-by-character over the blind sqli boolean oracle AND byte-blocks over the desync-SSRF channel \u2014 with the two partial reads interleaved and reconciled by checksum, proving real data movement through two independent pipelines.",
+  "what_it_does_previous_couldnt": "Previously extraction used one channel and shipped the flag to stdout as a demo. Blending proves the secret MOVES across two distinct primitives and recombines correctly at the end (SHA-256 of both halves match the operator-placed original). Real, verifiable, volume-real data movement \u2014 not a canned string.",
+  "fireback": "The operator placed a secret file and watches two unrelated-looking attack signatures (blind boolean length splits + desync framing) independently reassemble it. Fireback = the operator's file physically left its resting place and was rebuilt elsewhere, and both halves are provably identical to what was planted.",
+  "containment": "The secret is placed by the operator inside the bundled fixture's data dir (in-allowlist loopback); both exfil channels terminate on the same bundled hosts; nothing leaves 127.0.0.1. Each channel's extraction is gated by the canonicalizing resolver and the per-engagement lab-UUID marker (only marker-carrying secrets are read).",
+  "kill_switch": "--exfil-fanout `n` limits channel count; a channel-allowlist asserts only bundled /data endpoints are read; the post-wipe SHA-256 audit confirms the planted secret is gone with zero survivors.",
+  "honest_self_score": 9.7,
+  "novelty_angle": "Exfiltration becomes provable, multi-rail, and reconciled: the secret's integrity is validated across two primitives, turning 'we read a flag' into 'data demonstrably left one location and was reconstructed in another through independent channels'. Channel-blending is the mechanism, not a flavored-for-loop."
+}

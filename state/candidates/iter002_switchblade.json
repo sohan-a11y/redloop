@@ -1,0 +1,22 @@
+{
+  "name": "switchblade",
+  "concept": "A protocol-agnostic service knife that fingerpoints host/port/service combos across SSH, FTP, SMTP, HTTP, MySQL, PostgreSQL, Redis, mDNS and SMB, carries a lightweight library of service-specific misconfig/weak-cred check operators, and runs an autonomous triage/orchestration brain that scores each discovered path by exploit-likelihood and drops the highest-confidence attack against allowlisted lab hosts only.",
+  "attack_vectors": [
+    "service banner/fingerprint match vs known-misconfig signature table",
+    "default/weak credential login attempts per protocol (SSH, FTP, MySQL, Postgres, Redis, SMB)",
+    "unauthenticated Redis/Postgres/HTTP endpoints (no-auth keyspace, exposed admin pages)",
+    "mDNS/SMB enum for shares + weak guest/anonymous access on lab hosts",
+    "version-driven CVE signature match to launch a canned exploit check"
+  ],
+  "autonomy_level": 8,
+  "dare_factor": 7,
+  "novelty_angle": "Most lab knives scan fast and stop at fingerprints; this one adds a self-adapting triage brain that re-scans candidate services at higher depth, learns which check types scored hits in-session, biases the queue toward the best-evidence path, and emits ranked exploit candidates \u2014 a scan tool that reasons about what to hit next rather than blind scripted checks.",
+  "dependencies": [
+    "Python stdlib sockets + concurrent.futures",
+    "optional paramiko/pymysql/psycopg2/redis for deeper handshakes",
+    "json for scope allowlist + state persistence",
+    "banner-parsing regex lib for fingerprint signatures"
+  ],
+  "effort_estimate": "L",
+  "scope_gate": "Loads an allowlist (loopback 127.0.0.0/8, RFC1918 private ranges, plus user-supplied lab CIDR) into a set; every target IP is checked against this set before connect/probe/exploit; any address outside triggers immediate abort for that target + red WARN banner before any network activity."
+}

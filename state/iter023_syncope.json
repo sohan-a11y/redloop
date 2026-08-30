@@ -1,0 +1,32 @@
+{
+  "name": "syncope",
+  "concept": "An autonomous end-to-end request-smuggling attacker for the docker-compose nginx/gunicorn lab: multi-repetition CL.TE/TE.CL/TE.TE differential probe batteries with latency-orthogonality + teardown significance scoring, every finding gated on the patched-control proxy staying clean across the same probes, then auto-selects the highest-confidence variant to mount FE-auth-bypass / cache-poisoning / stored-XSS weaponization to an admin RCE sink. Post-RCE it fires a loud marker-tagged persistence + mini-C2 beacon + self-inventorying recovery tail whose SHA-256-verified zero-survivor cleanup verdict (and defender hunt-playbook artifact) feeds the final red-team evidence report \u2014 one verifiable probe-to-wipe loop.",
+  "merges": [
+    "desyncsmith",
+    "Ephemerid",
+    "broker-beachhead"
+  ],
+  "attack_vectors": [
+    "CL.TE / TE.CL / TE.TE differential detection with latency-orthogonality + teardown-analysis significance scoring (per-technique p-value/FP-rate headline)",
+    "patched-control validation arm: same probe set replayed against patched control; findings accepted only when control stays clean (A/B FP metric gates weaponization)",
+    "cache poisoning via smuggled request reshaping origin responses",
+    "front-end auth bypass: FE logs benign request, desynced origin executes privileged one",
+    "stored-XSS / admin-session poisoning via cross-user request interleaving",
+    "RCE via desync-bypassed admin command-exec sink delivering persistence payload with execution evidence",
+    "marker-tagged loud persistence (cron/systemd or fake-scheduler stub for CI; Windows deferred)",
+    "mini-C2 check-in loop: loopback-beaconed HTTP heartbeat + dead-man kill-switch triggering wipe tail"
+  ],
+  "autonomy_level": 7,
+  "dare_factor": 7,
+  "novelty_angle": "A single confidence-gated closed loop from probe to wipe: the patched-control arm measures a per-technique FP-rate that sets the significance threshold gating weaponization, and the persistence tail is deliberately loud with a marker-scoped SHA-256 artifact manifest whose verifiable zero-survivor cleanup verdict and defender hunt-playbook become the report headline \u2014 detection reliability, exploit viability, artifact inventory as one measurable chain.",
+  "dependencies": [
+    "Python 3.10+ stdlib only: ipaddress, http.client, socket, ssl, hashlib, subprocess, json, time, argparse",
+    "docker-compose lab topology as first-class artifact: nginx front + gunicorn/Flask origin with admin RCE sink + patched control proxy container",
+    "raw byte-level CL/TE framing",
+    "lab_config.json allowlist: loopback + RFC1918 + user --lab-cidr",
+    "Linux container with cron/systemd OR fake-scheduler stub mode for CI",
+    "optional httpx only if stdlib probing too slow"
+  ],
+  "effort_estimate": "XL",
+  "scope_gate": "Per-probe ipaddress resolver gate re-validates front, origin, AND patched control against loopback/RFC1918/user lab CIDR before every request; DNS-rebinding guard re-resolves each probe; WARN banner + hard-refuse on out-of-allowlist; RCE/persistence/beacon/wipe gated additionally on per-engagement lab-UUID marker plus allowlist."
+}

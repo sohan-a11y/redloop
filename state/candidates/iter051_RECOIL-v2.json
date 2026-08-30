@@ -1,0 +1,12 @@
+{
+  "round": 11,
+  "dare": 10,
+  "name": "RECOIL-v2",
+  "mechanism": "Self-healing persistence: after the scheduled task is created, the campaign runs a liveness probe that attempts a naive marker removal (unregistering the task) and observes the re-arm loop re-register it. Defense-in-depth only: re-arming is bounded (max re-arms per engagement) and the kill-switch retracts it permanently.",
+  "what_it_does_previous_couldnt": "R10 planted persistence but had no behavior under removal \u2014 one wipe and it was gone. Self-healing persistence survives a naive removal attempt, re-registering the markered task automatically, giving the operator a REAL demonstration of re-arm mechanics they must defeat \u2014 which is exactly the recoverable-persistence recovery fireback.",
+  "fireback": "The operator manually deletes the `RECOIL-<uuid>-[...]` task, watches it come back within the re-arm window, and has to either let it re-arm a bounded number of times or fire the kill-switch. That is handling active, resilient-but-bounded persistence in a real scheduler \u2014 the 'self-healing' the stockyard demands.",
+  "containment": "Pre-consented; re-arm is bounded by an engagement hard-cap (e.g. 3) so it can never loop unbounded; the re-arm beacon and task both carry the engagement marker and bounce only to the bundled loopback listener; removal-behavior testing is fully logged so the operator sees every re-registration.",
+  "kill_switch": "The kill-switch sets a disarmed flag that the re-arm loop checks first, permanently preventing further registration, then deletes all tasks and SHA-verifies zero survivors. Kill-switch always wins by checking state before it ever writes a task.",
+  "honest_self_score": 10,
+  "novelty_angle": "Persistence is no longer static \u2014 it is a bounded, observable, self-healing mechanism the operator must actively defeat, cloistered by a kill-switch that is guaranteed to win. Recovery-and-redundancy becomes a first-class defensive practice the operator trains on with real re-arm/u n-re-arm cycles inside their own scheduler."
+}

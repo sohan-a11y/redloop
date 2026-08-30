@@ -1,0 +1,23 @@
+{
+  "name": "lockstep",
+  "concept": "An intelligent credential adversary that first fingerprints lab hosts to build a live auth-surface map (SSH, FTP, web login forms, SMTP, MySQL/Postgres), then synthesizes small context-aware likely-credential dictionaries from service banners, hostnames, default creds, and tiny curated wordlists, and finally sprays them with lockout-safe adaptive pacing, per-account cooldown, and response-learned session hygiene so each guess learns from service-coded responses instead of brute force. Stacks default-credential checks against common lab frameworks (Tomcat, Jenkins, routers, DVWA, WordPress, postgres) as a first pass.",
+  "attack_vectors": [
+    "auth-surface enumeration & fingerprint-driven banner parsing (SSH/HTTP/SMTP/FTP/DB)",
+    "context-derived dictionary construction from hostnames, banners, and small curated wordlists",
+    "lockout-aware adaptive credential spraying with per-account exponential backoff and response fingerprinting",
+    "default-credential checks against known lab frameworks and appliances",
+    "dictionary priority from service-specific likelihood models"
+  ],
+  "autonomy_level": 8,
+  "dare_factor": 7,
+  "novelty_angle": "Intelligence beats breadth: it builds dictionaries from the target's own fingerprints and paces itself around lockout thresholds, making it a credential adversary that reasons about response codes and lock state \u2014 a context-to-credential inference engine rather than a bulk sprayer.",
+  "dependencies": [
+    "Paramiko (or asyncssh) for SSH auth",
+    "psycopg2/pymysql for DB brute-force checks",
+    "stdlib (socket, http, smtp, imap, ssl) for SMTP/IMAP/web/FTP",
+    "small embedded wordlists + default-credential tables",
+    "allowlist hosts file / CIDR parsing validated against scope"
+  ],
+  "effort_estimate": "L",
+  "scope_gate": "Only accepts targets matching the lab allowlist (loopback, RFC1918 private ranges, user-supplied lab CIDR); out-of-allowlist host refused at plan time before any connection; WARN banner on first run; hard stop if allowlist missing or --lab-cidr absent."
+}

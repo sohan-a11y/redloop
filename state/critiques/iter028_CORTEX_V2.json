@@ -1,0 +1,27 @@
+{
+  "target": "CORTEX_V2",
+  "lab_safety": {
+    "verdict": "pass",
+    "reason": "Single scope-checked dial wrapper re-validates every host/IP against allowlist before any byte leaves; WARN banner; hard-refuse on out-of-scope; plug-ins blocked if preconditions reference out-of-allowlist addresses; re-asserted per attempt. Stdlib only, no AI-safety evasion, no real-target coverage."
+  },
+  "scores": {
+    "feasibility": 8,
+    "originality": 5,
+    "dare": 4,
+    "effort_value": 6,
+    "mission_fit": 6
+  },
+  "overall": 5.8,
+  "verdict": "evolve",
+  "must_fix": [
+    "Payload/persist tail absent \u2014 pin one operator to a probe->execution->persist dossier (e.g. weak-cred Redis -> keyspace write)",
+    "Prove response-code->lock-state inference with concrete per-service parser",
+    "Correct dare framing: inert decision brain without weaponization"
+  ],
+  "evolve_hints": [
+    "Fold outcome-feedback into bundled A/B control fixture to make re-ranking falsifiable",
+    "Weaponize ONE misconfig to real execution (borrow depth from backflow/ADEPTUS)",
+    "Make cost-per-triage a measured headline vs naive scanner",
+    "Emit lock-inference pacing as training-signal table in report"
+  ]
+}

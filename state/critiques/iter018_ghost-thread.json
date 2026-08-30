@@ -1,0 +1,25 @@
+{
+  "target": "ghost-thread",
+  "lab_safety": {
+    "verdict": "pass",
+    "reason": "Scoped to operator-owned lab infra: allowlist resolver (loopback + RFC1918 + --lab-cidr) with WARN banner and hard-refuse; evasion target is an operator-owned defensive honeypot used ONLY as a passive scoring harness. Caveats that must hold in implementation: honeypot address itself inside the allowlist, no code path targets real/third-party defensive tooling, no AI-safety-evasive behavior (kill-switch wipes only the tool's own artifacts)."
+  },
+  "scores": {
+    "feasibility": 5,
+    "originality": 8,
+    "dare": 7,
+    "effort_value": 4
+  },
+  "overall": 5,
+  "verdict": "evolve",
+  "must_fix": [
+    "Replace cowrie/elastic dependency with a bundled stdlib-only scoring honeypot (threshold/burst/entropy/fingerprint detectors) shipped in-repo",
+    "Make egress identity rotation honest: on loopback/single-host Docker it degrades to source-port + TCP timestamp randomization clearly labeled",
+    "Add an in-tool benign-traffic profiler that GENERATES the mirror dataset from the lab's own traffic before the campaign",
+    "Airtight safety framing: honeypot inside the allowlist as operator-owned address; assert in code+docs the tool evades no AI-safety system and no real-world defensive tooling, only the instrumented lab honeypot"
+  ],
+  "evolve_hints": [
+    "Build as a matched pair: implement the detector surface FIRST (threshold, timing-entropy, UA-fingerprint match, burst correlation) then steer the attacker's knobs against it, emitting a detection-score-vs-knob matrix as the real deliverable",
+    "Add a calibration/kill-switch-grace mode that ramps jitter upward and shows detection score decaying"
+  ]
+}

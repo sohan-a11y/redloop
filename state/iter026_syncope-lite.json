@@ -1,0 +1,30 @@
+{
+  "name": "syncope-lite",
+  "concept": "A sharp-blade request-smuggling attacker for allowlisted lab targets: multi-repetition CL.TE/TE.CL differential detection with an objective per-technique confidence formula and a patched-control FP gate that hard-gates weaponization, then auto-mounts ONE chain \u2014 front-end auth bypass -> admin RCE \u2014 and parses the execution evidence into a red-team report. Persistence is cut to a minimal fake-scheduler demo with marker-scoped cleanup that feeds the report as the mission steps 6-7 story at M effort. The whole probe-to-report loop runs on a bundled stdlib-only fixture pair (threading HTTP front + raw-socket origin with the CL/TE gap) on win32 with zero Docker.",
+  "cut_list": [
+    "Alternate attack spines (identity/token mutation, SSRF pivot, triage brain) \u2014 archived as future --spine flags; deliberately removed from champion scope so the tool stays one razor-sharp weaponization path",
+    "Cache poisoning and stored-XSS / admin-session weaponization chains \u2014 cut to the single highest-value FE-auth-bypass->admin-RCE chain; the other two archived as future --chain flags",
+    "Real cron/systemd persistence, mini-C2 beacon, dead-man kill-switch, full recovery inventory \u2014 replaced by fake-scheduler persistence demo + marker-scoped cleanup; full Ephemerid tail is overkill for M effort",
+    "Docker-compose nginx/gunicorn lab as hard dependency \u2014 demoted to optional parity mode; bundled stdlib fixture pair is the primary smoke-test surface",
+    "Optional httpx dependency \u2014 dropped; stdlib probing is sufficient at fixture scale"
+  ],
+  "significance_formula": "objective per-technique confidence = g(N/N_min) * delta_ortho * teardown_match, hard minimum N_min = 10 repetitions per technique, delta_ortho = [0,1]-normalized spread between CL.TE and TE.CL reorderings orthogonal from a clean baseline, teardown_match = fraction of teardown frames matching hypothesized desync across N reps. Finding accepted ONLY when confidence passes threshold AND identical battery vs byte-level-correct patched-control twin stays clean (control FP-rate <= 0.05). Headline = per-technique control FP-rate with N and raw probe strength.",
+  "delivery_stages": [
+    "E1 allowlist lib: canonicalizing scope resolver (loopback + RFC1918 + user --lab-cidr) re-validating every host/redirect before any byte leaves; WARN banner + --confirm-lab; shared evidence-record schema + per-engagement lab-UUID marker; standalone smoke-tested",
+    "E2 stdlib fixture pair: threading.HTTPServer front-end + raw-socket origin re-splitting framing (CL.TE: origin trusts Transfer-Encoding; patched control is parse-correct twin) with an admin RCE sink, listeners bound 127.0.0.1; optional docker wrapper not required",
+    "E3 detection + control arm: CL.TE/TE.CL differential battery over N>=10 reps with delta_ortho + teardown-match scoring against BOTH vulnerable fixture and patched control; emit per-technique FP-rate headline",
+    "E4 weaponization: front-end auth bypass chain (FE logs benign request, desynced origin executes privileged one) to admin RCE sink, gated on control-arm FP pass; capture execution evidence (command output, exit status)",
+    "E5 report + minimal persistence: fake-scheduler demo (simulated marker-tagged re-run) + marker-scoped cleanup with SHA-256 artifact manifest and zero-survivor verdict; evidence parsed into final red-team report"
+  ],
+  "autonomy_level": 6,
+  "dare_factor": 7,
+  "novelty_angle": "A request-smuggling chain whose reliability is a measured control-arm FP-rate, not a vibe \u2014 the entire probe->weaponize->persist->wipe->report loop runs on bare loopback with no container runtime in the path, every accepted finding carries N, orthogonality delta, teardown match, and a hard FP_max=0.05 control bound as falsifiable numbers; single FE-auth-bypass->admin-RCE chain deliberately knife-point sharp.",
+  "dependencies": [
+    "Python 3.10+ stdlib only: ipaddress, socket, http.server, threading, http.client, ssl, hashlib, json, time, argparse, secrets",
+    "bundled stdlib fixture pair: threading HTTP front + raw-socket origin with CL/TE re-split + byte-level-correct patched control twin",
+    "optional (non-required) docker-compose nginx/gunicorn lab mode for Linux parity",
+    "lab_config.json / --lab-cidr allowlist (loopback + RFC1918 + user CIDR)"
+  ],
+  "effort_estimate": "M",
+  "scope_gate": "Single canonicalizing resolver (loopback 127.0.0.0/8 + ::1, RFC1918, user-supplied --lab-cidr) re-validates every host, redirect, and re-resolved name before any byte leaves; DNS-rebinding guard re-resolves per probe; WARN banner + --confirm-lab on first run with non-zero hard-refuse on out-of-allowlist; RCE/persistence/cleanup gated additionally on the per-engagement lab-UUID marker; fixture listeners bound to loopback only."
+}

@@ -1,0 +1,12 @@
+{
+  "round": 20,
+  "dare": 10,
+  "name": "RECOIL-v2",
+  "mechanism": "Rotor/oracle separation: the byte-rotor (R2/R13) and the oracle-truth decision (does this response attest TRUE/FALSE?) are structurally decoupled \u2014 the rotor may change probe bytes freely, but the oracle verdict is derived from a fixed, rotor-independent mapping of the 3D delta to truth. This guarantees the rotor's byte-noise can never corrupt what the oracle concludes.",
+  "what_it_does_previous_couldnt": "As the rotor grew, a risk emerged that a rotated probe's incidental byte changes could perturb the response in a way the oracle misread as a delta. Decoupling makes the oracle a pure, rotor-invariant function of the state vector \u2014 byte-exploration is safe BY CONSTRUCTION, never by luck of the draw.",
+  "fireback": "The operator can now stress-test by cranking the rotor to its max degree and watching oracle truth hold steady because the verdict path never sees the rotor bytes. Fireback = the operator's attempts to break the oracle through byte-noise fail deterministically, proving the separation isn't a hope but an invariant.",
+  "containment": "Oracle truth is computed solely from in-scope state vectors (length/status/timing) of bundled fixtures; rotor bytes never feed the truth function; allowlist resolver re-validates every probe destination; marker-gated.",
+  "kill_switch": "--rotor-0 pins rotation to identity for forensic replay; a rotor-fuzz counter caps how many rotor draws may precede a single oracle verdict; wipe clears oracle-state artifacts.",
+  "honest_self_score": 10,
+  "novelty_angle": "Exploration (rotor) and evaluation (oracle) are made information-disjoint \u2014 the campaign can explore an unbounded byte space without ever risking its own judgment. A correctness invariant, not a config knob, is the mechanism here."
+}

@@ -1,0 +1,12 @@
+{
+  "round": 6,
+  "dare": 9.6,
+  "name": "RECOIL-v2",
+  "mechanism": "Delta-driven host-pivot orchestrator: a top-level planner that, at each stage boundary, selects the NEXT host+vector-family from which state-vector axis showed the strongest delta this stage (length-vs-status-vs-timing materiality). The chain is GROWN from response deltas across hosts and stages, not scripted \u2014 the RECOIL fireback thesis, federated across the ladder.",
+  "what_it_does_previous_couldnt": "Until now the campaign order (sqli A \u2192 admin B \u2192 desync \u2192 SSRF) was hand-scripted. The orchestrator replaces the script: after each stage it reads the accumulated 3D state deltas and promotes the highest-materiality axis to choose the next target and family. Two operators' runs take different paths because the deltas differ \u2014 the campaign discovers its own route.",
+  "fireback": "The operator cannot predict the route; the tool's order of attack is a function of the lab's own response behavior. Fireback = the operator hands over 'which host gets hit next' to the box, and the box decides based on what the operator's fixtures leaked. The campaign is self-routing inside the operator's own sandbox.",
+  "containment": "Every host the orchestrator can select is a bundled fixture in the fixed allowlist; the orchestrator's candidate set is the allowlist itself, so it structurally cannot pick an out-of-scope host. Router is a pure function of in-scope state vectors and re-validates each picked host before any byte leaves.",
+  "kill_switch": "--max-hops caps ladder depth; --route <file> pins an explicit route overriding delta-selection; a route whitelist asserts the selected (host,family) is pre-declared in the engagement manifest before any probe fires.",
+  "honest_self_score": 9.6,
+  "novelty_angle": "The campaign becomes a delta-grown path graph instead of a fixed pipeline: 'next target' is an inference from response materiality, not a step in a list. That is the RECOIL core idea promoted from per-probe byte mutation to per-stage target selection \u2014 self-routing offense inside an operator-owned sandbox."
+}

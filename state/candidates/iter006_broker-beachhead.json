@@ -1,0 +1,21 @@
+{
+  "name": "broker-beachhead",
+  "concept": "Post-exploitation pivot/infra kit for the lab: it parses the compromised host's local broker state (listeners, peers, stored service descriptors), then stands up a SOCKS-over-TCP or HTTP CONNECT tunnel through the beachhead to rediscover the internal lab network and route traffic into it. Bundles a mini-C2 check-in loop (HTTP beacon with lab-safe persistence via scheduled task/cron-style re-run) plus an explicit kill-switch and full cleanup that tears down tunnels, removes beacon artifacts, and restores original state.",
+  "attack_vectors": [
+    "broker-state parsing to auto-discover internal lab subnets from the beachhead host",
+    "SOCKS-over-TCP/HTTP CONNECT pivot tunnel routing internal lab traffic through the compromised host",
+    "mini-C2 check-in loop with lab-safe persistence (scheduled re-run) and heartbeat",
+    "kill-switch + full cleanup reversing all persistence and tearing down tunnels to leave no residue"
+  ],
+  "autonomy_level": 7,
+  "dare_factor": 7,
+  "novelty_angle": "Most pivot kits focus on raw port-forwarding; this derives the internal network map from the compromised host's own broker state and makes the C2 loop + kill-switch first-class, self-contained deliverables with reversible cleanup \u2014 a post-exploitation infra kit rather than a single tunnel.",
+  "dependencies": [
+    "Python stdlib socketserver/socket",
+    "windows-schtasks or cron/systemd-timer for beacon re-run",
+    "asyncio or threading for concurrent tunnel/beacon",
+    "optional paramiko only if SSH pivoting needed"
+  ],
+  "effort_estimate": "L",
+  "scope_gate": "Single scope-gate module (allowlist = loopback + private ranges + user-supplied lab CIDR) validates every destination the tunnel routes to and every target the beacon checks in from; WARN banner on first run; hard-refuses any target outside the allowlist including broker-derived subnets not whitelisted."
+}

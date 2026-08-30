@@ -1,0 +1,23 @@
+{
+  "name": "FIREWATCH",
+  "concept": "A zero-click autonomous campaign engine that, from a single launch, surveys the allowlisted lab surface, assays candidate attack spines (request-smuggling, LFI log-poison RCE, JWT confusion, SSRF pivot) with low-cost canaries, executes the chosen spine to RCE, plants marker-tagged persistence, beacons back, and writes the report itself.",
+  "attack_vectors": [
+    "spine-assay canary scoring",
+    "request-smuggling FE-auth-bypass spine",
+    "LFI log-poisoning RCE spine",
+    "JWT-confusion escalation spine",
+    "SSRF internal-pivot spine",
+    "orchestrator re-arm loop",
+    "marker persistence + wipe + self-written report"
+  ],
+  "autonomy_level": 10,
+  "dare_factor": 10,
+  "novelty_angle": "self-driving campaign orchestrator treating spine-selection as live adversarial optimization",
+  "dependencies": [
+    "Python stdlib",
+    "bundled stdlib fixture farm (4 fixtures)",
+    "spine-registry manifest"
+  ],
+  "effort_estimate": "XL",
+  "scope_gate": "Canonicalizing allowlist resolver under-specified vs cohort standard; must inherit resolver + markers."
+}

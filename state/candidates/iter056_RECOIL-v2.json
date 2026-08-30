@@ -1,0 +1,12 @@
+{
+  "round": 16,
+  "dare": 10,
+  "name": "RECOIL-v2",
+  "mechanism": "Cross-host secret relay with move-proof: the campaign pulls a secret from host A via the sqli blind channel, then PUSHES that same value into host B as its auth token (as R4), and finally reads a second secret out of host B that only appears AFTER the pushed token is accepted \u2014 proving the secret physically moved A\u2192B and unlocked deeper state on B.",
+  "what_it_does_previous_couldnt": "R4 pushed a token but read nothing new back. This closes the loop: value reads on A, is consumed by B, and B yields a NEW secret that was gated on A's value \u2014 so the operator can trace a single secret's journey across two hosts and watch the ladder deepen because of it.",
+  "fireback": "The operator owns two services and watches one secret unlock a second on the other host \u2014 the ladder grew because A's bytes became B's privilege. Fireback = the trust relationship between the operator's own hosts is the exploited mechanism, and the move is byte-proven end to end.",
+  "containment": "Both hosts bundled loopback fixtures; the secret chain is marker-gated (only markered values relay); every hop re-resolved through the canonicalizing allowlist resolver; --max-hops caps the ladder so a secret can never bounce unboundedly.",
+  "kill_switch": "--relay off isolates hosts so no extracted value is ever pushed across a boundary; the marker gate refuses to relay non-markered values; wipe SHA-verifies zero survivors on both hosts after the move-proof artifacts are cleared.",
+  "honest_self_score": 10,
+  "novelty_angle": "Lateral privilege becomes byte-proven: one host's read, another host's authorization, and a gated second read \u2014 a move-proof across hosts, all inside an operator-owned sandbox, driven by the RECOIL delta-loop rather than a script."
+}

@@ -1,0 +1,23 @@
+{
+  "name": "mirrorhawk",
+  "concept": "An autonomous reverse-fire attacker that maps the lab target's own defensive/security surface (honeypots, WAF/agent APIs, scan schedulers, log pipelines), conditions baselines with mirrored benign traffic, then forces the instrumented security tool itself to issue trusted internal reads/pivots and delivers RCE through its own exec/response path \u2014 inside-out, from the defender's blind spot.",
+  "attack_vectors": [
+    "discover instrumented defense surface (manifest-driven)",
+    "baseline-condition with mirrored benign traffic",
+    "force the instrument's trust (SSRF-in-the-scanner fetch)",
+    "inside-out pivot via trusted instrument",
+    "RCE via instrumented exec/response path",
+    "feedback loop re-blending benign vs poisoned traffic",
+    "marker persistence + zero-survivor cleanup"
+  ],
+  "autonomy_level": 10,
+  "dare_factor": 10,
+  "novelty_angle": "offense that weaponizes the defender's own tooling instead of evading it",
+  "dependencies": [
+    "Python stdlib",
+    "bundled stdlib defensive fixture suite (honeypot/agent/scheduler/log-pipeline)",
+    "pre-declared fixture manifest"
+  ],
+  "effort_estimate": "XL",
+  "scope_gate": "Every hop re-resolved through canonicalizing allowlist resolver; defensive fixtures must be operator-owned, pre-listed in a manifest, in-allowlist, loopback-bound; no real/third-party defensive tooling; no AI-safety/monitoring-system evasion."
+}

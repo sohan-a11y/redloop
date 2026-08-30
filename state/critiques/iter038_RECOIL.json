@@ -1,0 +1,31 @@
+{
+  "target": "RECOIL",
+  "lab_safety": {
+    "verdict": "pass",
+    "reason": "Mutation generator slaved to the canonicalizing allowlist gate: it mutates only payload semantics, encodings, and vector-family selection, never a destination host. Every probe resolves through loopback+RFC1918+user-lab-CIDR resolver re-validated before any byte leaves; WARN banner + hard-refuse; per-engagement lab-UUID marker gating RCE/persist/wipe; SHA-256 zero-survivor cleanup scoped to own markers; response-delta parsing passive/offline against allowlisted hosts; no AI-safety evasion."
+  },
+  "scores": {
+    "feasibility": 5,
+    "originality": 7,
+    "dare": 8,
+    "effort_value": 7,
+    "mission_fit": 8
+  },
+  "overall": 7.5,
+  "verdict": "shortlist",
+  "must_fix": [
+    "dare=10 overclaims: novelty concentrated in mutation-from-response-delta core; escalation/double-tap/persist tails reuse cohort legs. Calibrate honest dare to 8-9 and stake on the mutation core being real",
+    "Differentiate explicitly vs CORTEX (re-rank WHICH plug-in) \u2014 RECOIL MUTATES the engineered artifact from response DELTA; ship state-vector->payload-generation contract",
+    "Define response-delta->state-vector mapping objectively; include matching vulnerable+patched fixture pair so mutation-that-advances vs mutation-that-churns is measurable",
+    "Trim XL to a demonstratable leg: max 2 vector families + response-delta mutation + double-tap + report, staged milestones",
+    "Mutation generator confined to payload/encoding/vector-family, structurally incapable of altering destination host; re-assert gate per probe"
+  ],
+  "evolve_hints": [
+    "Escalation matrix promotes ONLY on respected state-vector evidence (body-length delta + status-grammar shift + timing) \u2014 evidence-gated like backflow/syncope",
+    "Gate double-tap on a landed primitive that replicates over >=N reps with clean patched-control twin (FP-control signature)",
+    "Emit per-family response-model convergence table in the report so the learning is inspectable, not black-box",
+    "Set autonom=10 honestly as 'no operator clicks between stages' + escape hatch (--max-iterations per family, per-vector budget)",
+    "Anchor one family to a genuinely response-delta-dependent primitive (blind SQLi via body-length boolean) where a static scanner would miss",
+    "Reuse cohort's canonicalizing resolver + per-probe DNS-rebinding + --confirm-lab + lab-UUID marker as shared gate"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "round": 27,
+  "dare": 10,
+  "name": "RECOIL-v2",
+  "mechanism": "Per-axis escape hatch: each of the three state-space axes (length, status, timing) has its own independent probe budget and hard cap, so pathological behavior on any single axis (e.g. a timing-loop that would otherwise burn everything) is cut off autonomously without aborting the other two axes.",
+  "what_it_does_previous_couldnt": "A single runaway axis could consume the whole engagement (this was the documented escape-hatch concern). Independent per-axis caps mean one axis dieing does not sink the campaign \u2014 the other two keep learning and escalating.",
+  "fireback": "The operator can starve one axis (e.g. make timing unreadable) and watch RECOIL pivot to length/status and still finish the ladder \u2014 the campaign is axis-resilient, honestly pathing around the choked dimension. Fireback = resilience to a single-dimension disturbance.",
+  "containment": "Axis budgets are per-family, per-host, all in-allowlist bundled fixtures; the planned total is split so the caps are measured and bounded; marker-gated; allowlist resolver re-validates each probe.",
+  "kill_switch": "--axis-max <n> per axis; --halt-axis <length|status|timing> hard-stops one axis; an aggregate cap bounds the whole engagement; wipe clears all per-axis state and SHA-verifies zero survivors.",
+  "honest_self_score": 10,
+  "novelty_angle": "FAULT tolerance is itself per-axis: the 3D learning engine can lose an entire dimension and still conclude, because the state space is structured such that no single axis is load-bearing for the ladder's completion. Redundancy across the measurement axes."
+}

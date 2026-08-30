@@ -1,0 +1,26 @@
+{
+  "target": "switchblade",
+  "lab_safety": {
+    "verdict": "pass",
+    "reason": "Allowlist gate (loopback/RFC1918/user lab CIDR) validated on every target before connect/probe/exploit, WARN banner on first run, hard-refuses out-of-scope hosts, no AI-safety evasion, no real-target capability."
+  },
+  "scores": {
+    "feasibility": 7,
+    "originality": 3,
+    "dare": 5,
+    "effort_value": 5
+  },
+  "overall": 5,
+  "verdict": "evolve",
+  "must_fix": [
+    "Resolve duplication with CORTEX (triage/re-rank is the same core idea) and lockstep (weak-cred spraying)",
+    "9-protocol breadth with only optional deps means most deep handshakes degrade to stub/banner-only; narrow to stdlib-only protocols",
+    "Version-driven CVE signature match across many services is unbuildable in one L session \u2014 cut to canned checks for 1-2 well-known lab targets or drop"
+  ],
+  "evolve_hints": [
+    "Fold switchblade's fingerprint-signature table + service-specific weak-cred operators INTO CORTEX as plug-ins, merging toward a single champion",
+    "Differentiate the in-session learning (evidence-based re-ranking) as a measurable dimension with a scored lab set",
+    "Pick ONE distinctivist axis and go deep (protocol-agnostic fingerprinting OR triage brain OR weak-cred)",
+    "Add a concrete lab harness (disposable containers exposing Redis/Postgres/mDNS/SMB) so the triage/re-rank claim is smoke-testable"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "round": 22,
+  "dare": 10,
+  "name": "RECOIL-v2",
+  "mechanism": "Persistence liveness probe: the campaign periodically runs `schtasks /query /tn RECOIL-<uuid>-*` (and re-reads the Run-key hive) and RECORDS the real on-disk scheduling state \u2014 present/absent, NextRunTime, LastResult \u2014 into the evidence journal as living proof that the persistence is real and current at that moment.",
+  "what_it_does_previous_couldnt": "Persistence was created and later wiped, but its LIVE state mid-engagement was never substantiated with real scheduler query output. The liveness probe surfaces real `/query` rows, proving the task actually exists and is armed on the operator's box at query time, not just that a file was written.",
+  "fireback": "The operator sees captured real scheduler rows \u2014 task name, next run, last result \u2014 sit in the report as byte evidence that the task was genuinely live. Fireback = the operator is handed the exact forensic artifact (their own task's scheduler state) as the proof of compromise.",
+  "containment": "The probe runs only the read-only `schtasks /query` and `reg query` against the operator's own marker-prefixed task/run-key, plus the bundled loopback listener; no out-of-scope host touched; marker-gated so the probe only ever inspects engagement-owned artifacts.",
+  "kill_switch": "--liveness off disables the query leg; the probe asserts only marker-prefixed names and refuses otherwise; wipe deletes the task + run-key, re-queries to prove zero remain, and includes those negative rows in the SHA-verified audit.",
+  "honest_self_score": 10,
+  "novelty_angle": "Persistence is evidenced by its live scheduler/registry state and captured as real query output \u2014 the operator is given the uncompromised forensic truth of their own armed task at the moment it existed, making 'it persisted' a photographed fact, not an assertion."
+}

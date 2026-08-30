@@ -1,0 +1,29 @@
+{
+  "name": "backflow",
+  "concept": "An autonomous web attacker that walks ONE deep chain \u2014 allowlisted recon -> LFI/path-traversal discovery -> shortest-path log selection -> log-poisoning write -> blind RCE \u2014 advanced by a planner-evaluator loop that refuses to promote any stage until its signal reproduces against the bundled vulnerable fixture while staying clean against the bundled patched control, making every blind assertion a matched-pair A/B verdict with per-stage confidence. When the direct spine stalls it pivots via confirmed SSRF into internal-only services and an emulated 169.254.169.254 metadata endpoint. Context-derived credential dicts with lockout-safe pacing power the auth-bypass gate and the malicious access-log write.",
+  "merges": [
+    "webrain",
+    "ssrf-pivot-lance",
+    "lockstep"
+  ],
+  "attack_vectors": [
+    "LFI/path-traversal discovery with encoding variants canonicalized and re-validated in-allowlist",
+    "optimal-log-selection scan: shortest/most-deterministic write-back path (Basic-auth username vs error-page reflection vs session key)",
+    "log-poisoning blind RCE: write PHP payload via crafted log entry, read back via LFI, verify via time-based/out-of-band signal",
+    "planner-evaluator loop with per-stage negative-control validation vs bundled patched fixture (advance only on A/B-confirmed signal)",
+    "SSRF pivot branch: encoding bypass canonicalized to allowlist, file:///gopher:// reads whitelisted, loopback callback listener",
+    "emulated 169.254.169.254 metadata pivot -> internal admin API escalation, lab-only",
+    "context-derived credential dicts + lockout-safe pacing with response-code->lock-state inference"
+  ],
+  "autonomy_level": 7,
+  "dare_factor": 7,
+  "novelty_angle": "Negative-control-gated chain advancement: no stage promoted until signal reproduces on the vulnerable fixture and stays clean on the patched control \u2014 every blind RCE/lateral assertion becomes a matched-pair A/B verdict; plus optimal-log-selection scan instead of hammering /var/log/access.log by default.",
+  "dependencies": [
+    "Python 3 stdlib only: urllib/http.client, http.server loopback callback, socket, ipaddress, re, json, subprocess",
+    "bundled stdlib-served self-owned lab fixture: vulnerable app + patched control + emulated metadata (optional docker-compose wrapper)",
+    "user-supplied allowlist via --lab-cidr plus implicit loopback/RFC1918",
+    "tiny embedded wordlists + log-path choice tables"
+  ],
+  "effort_estimate": "L",
+  "scope_gate": "Single allowlist resolver (loopback + RFC1918 + user --lab-cidr) re-validated before every request, redirect, SSRF pivot host, and LFI path canonicalized to in-scope; DNS-rebinding guard re-resolves per request; callback bound loopback; metadata only inside emulated 169.254/16; WARN banner; non-zero hard-refuse on out-of-scope resolution before any byte leaves."
+}

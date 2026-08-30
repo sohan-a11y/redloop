@@ -1,0 +1,25 @@
+{
+  "name": "HydraSession",
+  "concept": "An autonomous session/auth-confusion toolkit for allowlisted lab web apps that crawls endpoints, harvests cookies/JWTs/role parameters from responses and page JS, and feeds them to a token mutation engine (JWT alg confusion, none-alg, unsigned-token rebasing, HMAC secret brute, cookie/param tampering, predictable-session analysis) that replays mutants and auto-escalates to admin via an IDOR + role-parameter traversal loop. It maps the app's authorization surface, then iterates harvest-mutate-replay-escalate until an admin-authenticated state is reached in the lab.",
+  "attack_vectors": [
+    "JWT alg confusion: none/case-variant forging and RS256-to-HS256 rebase using discovered public keys",
+    "Weak HMAC session secret recovery via offline wordlist/short-key brute, then full token forgery",
+    "Token replay & misuse: cross-endpoint replay, privilege rebinding, timestamp/expiry stretching",
+    "Cookie tampering: signed-cookie signature stripping, role/flag bit-flip, predictable session-ID inference",
+    "IDOR: object-ID traversal to harvest admin tokens",
+    "Role-parameter tampering: isAdmin/groups[]/permission-claim mutation and privilege re-request"
+  ],
+  "autonomy_level": 8,
+  "dare_factor": 8,
+  "novelty_angle": "Off-the-shelf tools stop at single-stage attacks (a JWT cracker, cookie scanner, IDOR fuzzer). This treats the whole auth/session lifecycle as one autonomous loop: live schema inference on harvested tokens drives a prioritized mutation engine, and an escalation brain picks the highest-credibility mutant to replay \u2014 mimicking an attacker who reads the app's own auth grammar before striking.",
+  "dependencies": [
+    "Python 3 stdlib (http.server, urllib, base64, hmac, hashlib)",
+    "allowlist file or --lab-cidr CLI",
+    "requests or stdlib urllib for HTTP",
+    "optional PyJWT; pure-stdlib JWT parser otherwise",
+    "small bundled session-secret wordlist for HMAC brute",
+    "optional JWKS public-key harvest"
+  ],
+  "effort_estimate": "L",
+  "scope_gate": "Single allowlist object (config file or --lab-cidr plus implicit 127.0.0.0/8,10/8,172.16/12,192.168/16): every fetch, replay, mutation, escalation resolves final host and is refused if outside allowlist. WARN banner on first run; public-range host aborts before any network I/O."
+}

@@ -1,0 +1,26 @@
+{
+  "target": "ssrf-pivot-lance",
+  "lab_safety": {
+    "verdict": "pass",
+    "reason": "Strictly lab-scoped: allowlist resolver re-validates every target and chained pivot host before any request, WARN banner + --confirm-lab flag, metadata endpoint confined to emulated 169.254/16 lab subnet, callback listener stays loopback, no AI-safety evasion or real third-party targeting. Encoding-bypass payloads must be canonicalized and proven in-allowlist; metadata pivot hard-tied to lab emulation."
+  },
+  "scores": {
+    "feasibility": 9,
+    "originality": 5,
+    "dare": 8,
+    "effort_value": 8
+  },
+  "overall": 7,
+  "verdict": "shortlist",
+  "must_fix": [
+    "Replace the literal 'placeholder' novelty_angle with a concrete differentiator",
+    "Allowlist resolver must normalize every encoding variant to canonical IP and require that IP in-allowlist; drop any payload that cannot be proven in-scope",
+    "Metadata pivot hard-wired to emulated 169.254.169.254 lab service only; refuse real cloud-metadata paths/domains; require --confirm-lab",
+    "Bind out-of-band callback listener to loopback only"
+  ],
+  "evolve_hints": [
+    "Add per-param callback-correlation triage: attribute each callback hit to the exact fuzzed parameter with request/response evidence",
+    "Add scheme-handling layer mapping file:///gopher:///dict:// reads to a whitelisted lab file list",
+    "Include optional time-/error-based sideless confirmation for blind SSRF so tool doesn't depend solely on out-of-band callbacks"
+  ]
+}

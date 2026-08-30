@@ -1,0 +1,12 @@
+{
+  "round": 23,
+  "dare": 10,
+  "name": "RECOIL-v2",
+  "mechanism": "Channel-blend acknowledgment loop: the exfil channels (length, status, timing) now carry ACK/NACK signals from the sink back to the emitter, so byte delivery is verified PER-CHUNK on an alternate channel \u2014 the emitter retransmits any chunk whose reconstruction the sink did not confirm. Two-way, blended, reliable exfiltration.",
+  "what_it_does_previous_couldnt": "R7/R14 exfiltrated one-way with a final checksum; a dropped/errored chunk mid-stream would fail at the end with no recovery. The ack loop makes exfiltration bidirectional and self-repairing: a chunk is retransmitted over another channel until the sink confirms it, so the secret ALWAYS arrives in full.",
+  "fireback": "The operator can actively try to sever one channel (e.g. rate-limit the timing leg) and watch the emitter reroute those bytes over the length channel and continue \u2014 the exfil degrades but does not die. Fireback = the operator's interference is absorbed and visibly handled.",
+  "containment": "Both channels terminate on bundled loopback fixtures; retransmission is bounded (--max-retx) so a blocked channel cannot loop forever; acknowledgments are marker-gated and reference only in-scope hosts; nothing leaves 127.0.0.1.",
+  "kill_switch": "--ack off falls back to one-way fire-and-checksum; --max-retx caps reroute attempts; wipe clears the ack-state and reconstruction artifacts and SHA-verifies the planted secret is gone.",
+  "honest_self_score": 10,
+  "novelty_angle": "Exfiltration becomes a two-way negotiated transport: per-chunk ACKs rerouted across blended channels until acknowledged, making loss-tolerance and operator interference a visible, handled part of the mechanism rather than a failure mode."
+}

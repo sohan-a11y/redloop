@@ -1,0 +1,23 @@
+{
+  "name": "Ephemerid",
+  "concept": "Post-RCE persistence-and-recovery demo kit for the lab: after execution on an allowlisted lab host, Ephemerid plants a clearly-labeled, marker-tagged persistence mechanism chosen from a menu (cron/systemd-timer, scheduled task / Windows Run key, service registration, webhook-at-boot) and then runs the recovery half of the loop \u2014 scanning the host for its own markers and common persistence footholds, driving a verification checklist that proves every artifact it planted, and finally executing a state-wipe kill-switch that removes all created artifacts and emits an evidence-of-cleanup report. A reversible, self-inventorying persistence cycle where detection and removal are first-class outputs.",
+  "attack_vectors": [
+    "Linux: cron / systemd-timer backdoor launcher tagged with lab-UUID marker",
+    "Windows: scheduled-task + startup-folder / Run-key registration (winreg, stdlib)",
+    "Service registration: systemd unit / sc.exe-style service re-launching the beacon",
+    "Boot/webhook trigger: at-boot or webhook-fired re-arming channel (demo-only, logs every fire)",
+    "Recovery loop: marker scanner enumerates own artifacts + common footholds, cleanup checklist, state-wipe kill-switch and post-clean evidence report"
+  ],
+  "autonomy_level": 6,
+  "dare_factor": 4,
+  "novelty_angle": "Persistence R&D usually optimizes stealth and lingering; Ephemerid inverts it \u2014 the implant is deliberately loud and label-tagged so the product is the self-detection + forensic-inventory + reversible-cleanup loop. Demonstrates realistic persistence mechanics while proving a complete state-wipe, so defenders learn what artifacts to hunt and operators get lab-safe removal practice without resembling a stealthy implant.",
+  "dependencies": [
+    "Python 3 stdlib (subprocess, tempfile, pathlib, socket)",
+    "posix where needed: crontab/systemctl on lab Linux host; winreg on lab Windows host",
+    "SSH/exec channel to lab host (stdlib subprocess/ssh; optional paramiko)",
+    "user-supplied lab CIDR in allowlist config",
+    "temporary disposable lab VM/container as victim"
+  ],
+  "effort_estimate": "M",
+  "scope_gate": "Central allowlist parser validates every host/path/CIDR against loopback + RFC1918 + user-supplied lab CIDR and refuses anything else; WARN banner with scope printout on first run; all planted artifacts embed a per-engagement lab-UUID so the recovery scanner only cleans hosts carrying that marker; cleanup report lists every artifact and asserts zero survivors before kill-switch self-destructs the tool's own working dir."
+}

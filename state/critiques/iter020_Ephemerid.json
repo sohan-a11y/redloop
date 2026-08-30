@@ -1,0 +1,29 @@
+{
+  "target": "Ephemerid",
+  "lab_safety": {
+    "verdict": "pass",
+    "reason": "Explicit allowlist (loopback+RFC1918+user lab CIDR), WARN banner, per-engagement lab-UUID marker-gated recovery so scanners only clean hosts carrying that marker, reversible-by-design with kill-switch and evidence-of-cleanup report; persistence targets disposable lab hosts only, no real-target facilitation, no AI-safety evasion."
+  },
+  "scores": {
+    "feasibility": 7,
+    "originality": 6,
+    "dare": 4,
+    "effort_value": 6
+  },
+  "overall": 6,
+  "verdict": "evolve",
+  "must_fix": [
+    "Prove persistence on a real disposable host: Docker containers typically lack cron/systemd init \u2014 spec VM or privileged container, or add fake-scheduler stub mode for CI smoke tests",
+    "Cut cross-platform surface for a single session \u2014 ship Linux cron/systemd + marker scanner first; defer winreg/Run-key and sc.exe branch behind --os windows",
+    "Make zero-survivor proof verifiable: emit per-engagement artifact manifest (path+sha256 of each planted file/entry) and re-verify checksums post-wipe",
+    "Keep evidence-of-cleanup report durable: write outside tool's own working dir or stream to stdout before kill-switch wipes workdir",
+    "Gate every recovery action on the lab-UUID marker at scan AND wipe time"
+  ],
+  "evolve_hints": [
+    "Position Ephemerid as the Persist + Recovery stage (mission 6-7) bolted onto the champion discovery/exploit runner rather than a standalone champion",
+    "Add --dry-run/simulate mode (virtual scheduler + fake FS) so persistence cycle smoke-tests in one container with no init system",
+    "Emit a defender-playbook artifact (markers and strings a real defender should hunt) to justify the low dare factor",
+    "Feed cleanup evidence back into the champion's final red-team report so persistence/wipe cycle is a report section",
+    "Bundle a small server-side log collector so webhook/boot re-arm fires observable logged events"
+  ]
+}

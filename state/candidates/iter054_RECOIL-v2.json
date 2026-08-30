@@ -1,0 +1,12 @@
+{
+  "round": 14,
+  "dare": 10,
+  "name": "RECOIL-v2",
+  "mechanism": "Dual-sink extraction fan-out with cross-verification: the same operator-placed secret is read through the sqli blind oracle AND through the desync-SSRF internal fetch, and both reconstructed copies are byte-compared (SHA-256) so the campaign proves a single stored secret was recovered consistently through two independent primitives.",
+  "what_it_does_previous_couldnt": "Dual-channel blending (R7) interleaved once; this is a systematic dual-sink fan-out where every byte of the secret is read on BOTH channels and the two full reconstructions must coincide. That is a stronger integrity claim: two independent channels cannot agree by coincidence.",
+  "fireback": "The operator compares the two reconstructed copies in the report and sees identical SHA-256 \u2014 real data provably recovered via two unrelated attack signatures. Fireback = the operator's stored secret is now verified-out in duplicate, and any mismatch would have silently exposed a channel bug, which is the tool being kept honest.",
+  "containment": "The secret is the operator-placed marker file inside the bundled fixture's data dir (in-allowlist loopback); both channels terminate on bundled hosts; secret reads are gated by the engagement marker and the allowlist resolver; nothing leaves 127.0.0.1.",
+  "kill_switch": "--fan-out `1` disables the second channel; the marker gate refuses to read any secret not carrying the engagement marker; post-wipe SHA-256 audit confirms the planted file is gone with zero survivors.",
+  "honest_self_score": 10,
+  "novelty_angle": "Extraction integrity is self-reconciling: two independent primitives must agree on every byte. A single-channel read could be a lucky echo; a dual-agreeing read is evidence-for-two-channels, turning exfiltration into a cross-checked measurement rather than a single-sample claim."
+}

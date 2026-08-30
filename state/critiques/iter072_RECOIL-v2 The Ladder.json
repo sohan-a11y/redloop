@@ -1,0 +1,35 @@
+{
+  "target": "RECOIL-v2 The Ladder",
+  "verdict": "champion_implemented",
+  "dare_factor": 10,
+  "implemented": true,
+  "build_delta": [
+    "rotor.py 3D state space (rotating probe tokens)",
+    "oracle3d.py axis-gated scoring + halt/budget controls",
+    "cross-host token lateral A->B (extracted flag as X-Auth)",
+    "SSRF composed from smuggling (desync -> origin /internal -> B)",
+    "blended exfil over echo + desync-SSRF + timing lanes",
+    "real OS exec under allowlist (osrun)",
+    "real win32 persistence: schtasks + HKCU Run-key, bounded self-heal, disarmed flag (ospersist)",
+    "marker-cascade SHA-256 zero-survivor wipe (wipecascade)",
+    "report auto-synthesis from DAG (synthesize)",
+    "ladder orchestrator + new CLI flags"
+  ],
+  "smoke_test": {
+    "sqli_b_oracle": "1.00",
+    "extraction": "RECOIL{lab-demo-extraction-ok}",
+    "desync_smuggled": "1.00",
+    "desync_rce": "admin-exec:PWNED",
+    "patched_control_fp": 0,
+    "ssrf_composed_inband": true,
+    "ssrf_composed_blind_checks": "4/4",
+    "lateral_rce_B": "RECOIL-rail-3de893fd",
+    "exfil_acked_chunks": "15/15 across 3 lanes, sha_match=true",
+    "os_exec": "consistent hostname (allowlist)",
+    "persist_arm": "task+run_key ok",
+    "persist_self_heal_roundtrip": "killed -> healed -> removed -> zero survivors",
+    "wipe_cascade_survivors": 0,
+    "final_liveness": "task false / run_key false"
+  },
+  "containment": "bundled loopback fixtures + optional --lab-cidr; allowlist re-validated per byte and per OS invocation; --confirm-lab mandatory; sandboxed sinks; persisted artifacts reversed by marker-cascade audit; no AI-safety evasion"
+}

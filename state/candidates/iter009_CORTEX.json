@@ -1,0 +1,22 @@
+{
+  "name": "CORTEX",
+  "concept": "Autonomous vulnerability-triage and exploit-orchestration decision engine: it ingests cheap probes (banners, HTTP behavior, TLS metadata, response differentials), scores candidate vulnerabilities from a plug-in registry against likelihood x impact with per-attempt cost, ranks and executes exploit plug-ins by priority with outcome feedback that re-ranks survivors, and emits a red-team report synthesizing evidence (request/response pairs, timings, exit codes) for every attempted path. The meta-brain and report generator are the deliverable; exploit coverage is declarative, precondition-declaring plug-ins kept lab-safe.",
+  "attack_vectors": [
+    "service banner/version fingerprinting -> CVE plug-in match",
+    "HTTP response-behavior differentials -> web plug-in selection",
+    "TLS certificate metadata -> exact-version pinning before firing",
+    "recursive post-attempt re-ranking (prune dead paths, promote survivors, refund attempt budget)",
+    "precondition-confidence gating: probe verifies reachability before a high-impact plug-in launches"
+  ],
+  "autonomy_level": 8,
+  "dare_factor": 7,
+  "novelty_angle": "Unlike fire-everything autopwn engines, this is an explicit decision-theoretic triage brain with outcome-feedback loops and evidence-preserving report synthesis \u2014 exploits are inert declarative plug-ins (preconditions/trust/lab-safety flags) so the orchestrator grows coverage without touching the planner, and what worked/failed becomes training signal for the next iteration.",
+  "dependencies": [
+    "Python stdlib only: socket, ssl, http.client, urllib, json, subprocess, time, re",
+    "json/YAML plug-in manifest registry (preconditions, confidence, impact, attempt cost, lab-safety flag)",
+    "allowlist config file (state/allow.conf)",
+    "harmless lab payload templates under tool/payloads/"
+  ],
+  "effort_estimate": "L",
+  "scope_gate": "Every socket/packet funneled through a single scope-checked dial wrapper that resolves and CIDR-validates target against state/allow.conf (loopback + RFC1918 + user-supplied lab CIDR) BEFORE any byte leaves the box; plug-in blocked if its declared preconditions reference out-of-allowlist addresses; first run prints WARN banner and refuses with non-zero exit on any out-of-scope target; re-asserted per attempt so scope cannot drift."
+}

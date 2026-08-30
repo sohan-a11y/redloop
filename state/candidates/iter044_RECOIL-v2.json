@@ -1,0 +1,12 @@
+{
+  "round": 4,
+  "dare": 9.4,
+  "name": "RECOIL-v2",
+  "mechanism": "Second-host lateral stage: introduce a second bundled loopback service \u2014 an 'internal admin' host whose /grant endpoint only accepts a token equal to the sqli-extracted secret. The campaign, having read the secret from web-host A via the blind boolean oracle, POSTs it to admin-host B to flip a privilege flag. Cross-service lateral pivot, leg 1, fully autonomous.",
+  "what_it_does_previous_couldnt": "RECOIL-v1 is single-host: it never leaves the fixture it started on. This is the first stage where a value read from one in-allowlist host is used to authenticate to a DIFFERENT in-allowlist host, and the campaign keeps marching without an operator click \u2014 the seed of the multi-host ladder.",
+  "fireback": "The operator owns two loopback services but sees the campaign bridge them: host A's bytes physically travel to host B as an auth token. Fireback = the operator now has to defend TWO hosts and the trust boundary between them, because a read on A became a privilege on B.",
+  "containment": "Both A and B are bundled fixtures bound to 127.0.0.1. The canonicalizing allowlist resolver re-validates EVERY hop host before any byte leaves \u2014 host A, host B, and the token's destination are all re-resolved per step. A/B are in the fixed loopback allowlist.",
+  "kill_switch": "--stage-2 off caps the campaign to single-host so nothing ever bridges A to B; a --max-hops budget limits ladder depth; wipe clears artifacts on both hosts and SHA-verifies zero survivors on each.",
+  "honest_self_score": 9.4,
+  "novelty_angle": "The RECOIL learning loop crosses process trust boundaries \u2014 a state-vector read on one host becomes a state-input to another host's exploit. That is lateral movement in the same byte-grammar as lateral movement on a network, but entirely inside the operator's loopback sandbox, and driven by learned deltas, not a scripted pivot table."
+}

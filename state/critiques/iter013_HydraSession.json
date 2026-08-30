@@ -1,0 +1,27 @@
+{
+  "target": "HydraSession",
+  "lab_safety": {
+    "verdict": "pass",
+    "reason": "Single allowlist object re-validates final host before every fetch/replay/mutation/escalation, hard-refuses public ranges before any I/O, WARN banner on first run, no AI-safety evasion or real-target framing. HMAC brute is offline against harvested token, not online spraying."
+  },
+  "scores": {
+    "feasibility": 8,
+    "originality": 5,
+    "dare": 6,
+    "effort_value": 8
+  },
+  "overall": 7,
+  "verdict": "evolve",
+  "must_fix": [
+    "Resolve overlap with webrain's auth-bypass vectors \u2014 stake HydraSession to the auth/session vertical and absorb or demote webrain's auth-bypass set",
+    "Bundle a disposable lab fixture app with planted flaws (weak-HMAC JWT, no-alg/alg-confusion endpoint, role parameter) so mutation chains are smoke-testable",
+    "Trim scope to L or reclassify M: drop JWKS harvest or IDOR leg, cap wordlist-brute budget",
+    "Escalation success must be evidence-based (auth vs unauth response differentials), not raw 200s"
+  ],
+  "evolve_hints": [
+    "Position the live token-schema inference loop (learn the app's token grammar from harvested samples, then mutate only fields the grammar says exist) as the differentiator vs jwt_tool/cracker",
+    "Score mutants by credibility before replay (signature-valid vs stripped vs rebased) to cut request noise",
+    "Add signed-cookie signature-stripping chain (Django-style) riding the same stdlib hmac/hashlib path",
+    "End-state: reach admin-authenticated state as the report headline"
+  ]
+}

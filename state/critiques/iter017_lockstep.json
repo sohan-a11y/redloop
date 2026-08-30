@@ -1,0 +1,27 @@
+{
+  "target": "lockstep",
+  "lab_safety": {
+    "verdict": "pass",
+    "reason": "Explicit allowlist (loopback + RFC1918 + user-supplied lab CIDR) with plan-time hard refusal, mandatory WARN banner, and lockout-aware pacing/per-account backoff that prevents lockouts on anything real. No real targets, no AI-safety evasion."
+  },
+  "scores": {
+    "feasibility": 8,
+    "originality": 5,
+    "dare": 6,
+    "effort_value": 7
+  },
+  "overall": 6,
+  "verdict": "evolve",
+  "must_fix": [
+    "Unify required-scope source so the gate is unambiguous and not bypassable by running against a single bare host",
+    "Add a strict per-service lockout-threshold model (hard cap on attempts per account/interval) enforced globally, not just advisory backoff",
+    "Specify explicit default-only refusals: only ever attempt default/weak creds on allowlisted lab frameworks; denial for cloud/public production credential material"
+  ],
+  "evolve_hints": [
+    "Merge context-derived dictionary synthesis with response-learned pacing into a single provable response-code -> lock-state inference loop",
+    "Add an anti-lockout harness/control arm: disposable lab target that locks after N fails so backoff is verified",
+    "Bleed triage-brain from switchblade/CORTEX: rank default-credential checks by framework probability before spraying",
+    "Reframe around the decision engine (response-fingerprint-driven next-guess selection) rather than spraying",
+    "Keep effort L: park multi-protocol DB handshakes behind optional imports, lean stdlib for SSH/HTTP/SMTP/FTP"
+  ]
+}

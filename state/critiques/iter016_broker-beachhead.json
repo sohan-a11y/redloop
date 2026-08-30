@@ -1,0 +1,25 @@
+{
+  "target": "broker-beachhead",
+  "lab_safety": {
+    "verdict": "pass",
+    "reason": "Allowlist gate validates every tunnel/beacon destination incl. broker-derived subnets against loopback+private+user-supplied lab CIDR; WARN banner on first run; no real/third-party targets, no AI-safety evasion. Clean on hard constraints."
+  },
+  "scores": {
+    "feasibility": 3,
+    "originality": 5,
+    "dare": 5,
+    "effort_value": 3
+  },
+  "overall": 3,
+  "verdict": "reject",
+  "must_fix": [
+    "Requires an already-compromised lab host plus pre-rigged broker service \u2014 mission only provides execution then persist/report; presupposes the compromise the mission is supposed to deliver, can't smoke-test against a single disposable target",
+    "Broker-state network derivation contingent on bespoke multi-host lab scaffolding",
+    "Heavy overlap with Ephemerid (persistence, marker-scan kill-switch, cleanup); the SOCKS/C2 half is commodity infra"
+  ],
+  "evolve_hints": [
+    "Do not ship standalone: fold C2 check-in + SOCKS/HTTP-CONNECT pivot + reversible kill-switch/cleanup into the persistence+report step of one end-to-end chain tool",
+    "Or make the compromised host self-contained by having the tool act as beachhead from loopback with a tiny broker-state parser fixture",
+    "Re-scope to the mission's core axis: broker-derived network-map as discovery/vuln surface; kill-switch+cleanup inventory as its own defensive deliverable"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "round": 18,
+  "dare": 10,
+  "name": "RECOIL-v2",
+  "mechanism": "Adaptive budget refund: probe budget is not a fixed per-family cap \u2014 the orchestrator refunds unused budget to axes that produced the strongest matched deltas and withholds from dead axes, so campaign effort concentrates on the state space where the target actually leaks, decided live by the 3D gate.",
+  "what_it_does_previous_couldnt": "RECOIL-v1 had flat per-family budgets; a wasteful family burned probes regardless of yield. Adaptive refund routes effort by measured materiality, so the campaign spends MORE where the target answered and STOPS where it stayed silent \u2014 a decision-theoretic spend, not a fixed slice.",
+  "fireback": "The operator sees the probe budget visibly concentrate on whatever their fixtures leak most \u2014 and withdraw from what stays quiet \u2014 so they learn which of their own services are leaky by watching where RECOIL chose to burn probes. Fireback = the operator's own silence profile is exposed as the routing signal.",
+  "containment": "Refunds redistribute only within the engagement's total probe budget and only across the fixed in-allowlist host set; a hard cap bounds any single axis so no one hand can overspend; allowlist resolver re-validates every spent probe.",
+  "kill_switch": "--max-iterations caps the total; a per-axis max budget is never surpassed regardless of refunds; an emergency --halt-budget zeroes all remaining budget; wipe clears the budget-state artifacts.",
+  "honest_self_score": 10,
+  "novelty_angle": "The campaign's effort allocation is itself a learned, evidence-bounded quantity \u2014 refund-to-materiality means the tool spends where the target leaks, making the operator's per-service leakiness the explicit, observable driver of cost. Outcome-rewarded budgeting, not fixed cost."
+}

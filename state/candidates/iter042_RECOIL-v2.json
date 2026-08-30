@@ -1,0 +1,12 @@
+{
+  "round": 2,
+  "dare": 9.2,
+  "name": "RECOIL-v2",
+  "mechanism": "Live payload rotor: every probe is byte-unique. A per-engagement seeded nonce is blended into the encoding/obfuscation choice (comment tokens, whitespace class, case permutation, delimiter) so no two probes across the whole campaign are byte-identical, even for the same boolean predicate.",
+  "what_it_does_previous_couldnt": "RECOIL-v1 re-uses fixed encodings (raw / comment-stab / case-shuffle / ws-tab) \u2014 a signature matcher that saw one probe learns all identical repeats. The rotor makes pattern-matching on probe bytes a counting exercise: a defender can only say 'many probes happened', never 'these are the same probe', because no byte repeats.",
+  "fireback": "The operator watches the request log and realizes exact-byte dedup is impossible \u2014 every line is a fresh fingerprint. Fireback = the log stops being readable as 'repeats' and becomes a stream where the operator's only leverage is response-delta correlation, which is exactly what RECOIL is trained on.",
+  "containment": "The rotor mutates only payload/encoding/framing bytes; destination host is structurally fixed by scope.py's canonicalizing resolver and re-validated before every probe. All probes target only the bundled loopback fixture.",
+  "kill_switch": "Rotor nonce is deterministic and escrowed: --rotor-seed <HEX> replays any probe byte-exactly, so the operator can regenerate and reverse any single attempt for forensic inspection; --max-iterations caps total rotor draws.",
+  "honest_self_score": 9.2,
+  "novelty_angle": "Encoding mutation becomes an infinite renewable space keyed by an engagement seed instead of a finite enum \u2014 'brute-force our detection' is the defender's only answer, and even that is time-bounded by the rotor's draw rate. This is the stockyard's 'live payload rotor' made load-bearing."
+}
